@@ -1,0 +1,7 @@
+*.o
+*~
+lib/*.a
+lib/*.dll
+src/.compile
+src/private_build.h
+src/*.dll
