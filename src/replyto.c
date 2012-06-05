@@ -92,8 +92,6 @@ void plugin_load(void)
   g_signal_connect(syl_app_get(), "app-exit", G_CALLBACK(app_exit_cb), NULL);
   g_signal_connect(syl_app_get(), "app-force-exit", G_CALLBACK(app_force_exit_cb), NULL);
 
-  syl_plugin_signal_connect("inc-mail-start", G_CALLBACK(inc_start_cb), NULL);
-  syl_plugin_signal_connect("inc-mail-finished", G_CALLBACK(inc_finished_cb), NULL);
   syl_plugin_signal_connect("messageview-show",
                             G_CALLBACK(messageview_show_cb), NULL);
   syl_plugin_signal_connect("compose-created",
