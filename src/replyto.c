@@ -276,7 +276,7 @@ static void exec_replyto_who_cb(void)
   g_signal_connect(G_OBJECT(cancel_btn), "clicked",
                    G_CALLBACK(replyto_who_cancel_cb), window);
 
-  gtk_box_pack_start(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
   gtk_widget_show(confirm_area);
 
   gtk_widget_show(window);
