@@ -1,4 +1,5 @@
-/*
+/* -*- coding: utf-8-unix -*-
+ *
  * ReplyTo extension plug-in
  *  -- 
  * Copyright (c) 2012, HAYASHI Kentaro <kenhys@gmail.com>
