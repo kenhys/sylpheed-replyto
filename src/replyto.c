@@ -242,6 +242,17 @@ static void prefs_test_cb(GtkWidget *widget, gpointer data)
 {
 }
 
+static gchar *reply_to_list[] = {
+  "To", "From", "Cc", "List-Id", "Reply-To",
+};
+
+
+enum {
+  COLUMN_STRING,
+  COLUMN_INT,
+  N_COLUMNS,
+};
+
 static void exec_replyto_who_cb(void)
 {
   // show window
@@ -280,22 +291,40 @@ static void exec_replyto_who_cb(void)
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
   gtk_widget_show(confirm_area);
 
-  GSList *hlist = procheader_get_header_list_from_msginfo(g_opt.msginfo);
-  int i = 0;
-  for (i = 0; i < g_slist_length(hlist); i++) {
-    Header *header = (Header *)g_slist_nth_data(header, i);
-    g_print("%s:%s\n", header->name, header->body);
+  int i , j;
+  GtkComboBox *combo = gtk_combo_box_new_text();
+  if (g_opt.msginfo) {
+    debug_print("[DEBUG] msginfo:%p\n", g_opt.msginfo);
+    gchar *msg_path = procmsg_get_message_file_path(g_opt.msginfo);
+    GSList *hlist = procheader_get_header_list_from_file(msg_path);
+    if (hlist) {
+      debug_print("[DEBUG] hlist:%p\n", hlist);
+      for (i = 0; i < g_slist_length(hlist); i++) {
+        Header *header = (Header *)g_slist_nth_data(hlist, i);
+        if (header && header->name && header->body) {
+          for (j = 0; j < 5; j++) {
+            if (strcmp(header->name, reply_to_list[j]) == 0) {
+              gtk_combo_box_append_text(combo, header->body);
+            }
+          }
+          g_print("%s:%s\n", header->name, header->body);
+        }
+      }
+    }
   }
+  gtk_box_pack_start(GTK_BOX(vbox), combo, FALSE, FALSE, 0);
   
-  
-  gtk_widget_show(window);
+  gtk_widget_show_all(window);
   
 }
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers)
 {
+  debug_print("[DEBUG] messageview_show_cb\n");
+  debug_print("[DEBUG] msginfo:%p\n", msginfo);
   g_opt.msginfo = msginfo;
+  debug_print("[DEBUG] msginfo:%p\n", g_opt.msginfo);
 }
 
 
