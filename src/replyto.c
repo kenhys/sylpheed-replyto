@@ -41,6 +41,7 @@
 #include "plugin.h"
 #include "procmsg.h"
 #include "procmime.h"
+#include "procheader.h"
 #include "utils.h"
 #include "alertpanel.h"
 #include "prefs_common.h"
@@ -279,6 +280,14 @@ static void exec_replyto_who_cb(void)
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
   gtk_widget_show(confirm_area);
 
+  GSList *hlist = procheader_get_header_list_from_msginfo(g_opt.msginfo);
+  int i = 0;
+  for (i = 0; i < g_slist_length(hlist); i++) {
+    Header *header = (Header *)g_slist_nth_data(header, i);
+    g_print("%s:%s\n", header->name, header->body);
+  }
+  
+  
   gtk_widget_show(window);
   
 }
