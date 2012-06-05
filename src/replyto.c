@@ -286,7 +286,7 @@ static void exec_replyto_who_cb(void)
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers)
 {
-  // collect header
+  g_opt.msginfo = msginfo;
 }
 
 

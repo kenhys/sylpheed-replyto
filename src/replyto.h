@@ -50,8 +50,10 @@ struct _ReplyToOption {
   GKeyFile *rcfile;
 
   gboolean startup_flg;
-  
+
   GtkWidget *startup;
+
+  MsgInfo *msginfo;
 };
 
 typedef struct _ReplyToOption ReplyToOption;
