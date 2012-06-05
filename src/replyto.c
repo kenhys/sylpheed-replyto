@@ -37,6 +37,7 @@
 #include <sys/stat.h>
 
 #include "sylmain.h"
+#include "mainwindow.h"
 #include "plugin.h"
 #include "procmsg.h"
 #include "procmime.h"
@@ -202,7 +203,11 @@ static void compose_created_cb(GObject *obj, gpointer compose)
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
-  syl_plugin_compose_new(NULL, NULL, "hoge@net", NULL);
+  MainWindow *mainwin = syl_plugin_main_window_get();
+  
+  /* emulate reply button clicked! */
+  gtk_signal_emit_by_name(mainwin->reply_btn, "clicked");
+  
   gtk_widget_destroy(GTK_WIDGET(data));
 }
 
