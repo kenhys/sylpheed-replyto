@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-31 23:22+0900\n"
+"POT-Creation-Date: 2012-06-06 01:26+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,79 +16,79 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/replyto.h:34
+#: src/replyto.h:43
 msgid "ReplyTo - reply extention plug-in for Sylpheed"
 msgstr ""
 
-#: src/replyto.h:35
+#: src/replyto.h:44
 msgid "reply to plug-in for Sylpheed"
 msgstr ""
 
-#: src/replyto.c:54
+#: src/replyto.c:65
 msgid ""
-"ReplyTo is distributed under GPL license.\n"
+"ReplyTo is distributed under 2-Clause BSD license.\n"
 "\n"
 "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>\n"
 "replyto contains following resource.\n"
 "\n"
 msgstr ""
 
-#: src/replyto.c:75
+#: src/replyto.c:86
 msgid "ReplyToNotify notify support Plug-in"
 msgstr ""
 
-#: src/replyto.c:76
+#: src/replyto.c:87
 msgid "ReplyTo support Plug-in"
 msgstr ""
 
-#: src/replyto.c:79
+#: src/replyto.c:90
 msgid "ReplyTo Settings [replyto]"
 msgstr ""
 
-#: src/replyto.c:81
+#: src/replyto.c:91
 msgid "Reply to Who?"
 msgstr ""
 
-#: src/replyto.c:133 src/replyto.c:377
+#: src/replyto.c:145 src/replyto.c:504
 msgid "ReplyTo is enabled. Click the icon to disable plugin."
 msgstr ""
 
-#: src/replyto.c:140
+#: src/replyto.c:152
 msgid "ReplyTo is disalbed. Click the icon to enable plugin."
 msgstr ""
 
-#: src/replyto.c:266
+#: src/replyto.c:393
 msgid "ReplyTo Settings [ReplyTo]"
 msgstr ""
 
-#: src/replyto.c:308
+#: src/replyto.c:435
 msgid "Startup Option"
 msgstr ""
 
-#: src/replyto.c:313
+#: src/replyto.c:440
 msgid "Enable plugin on startup."
 msgstr ""
 
-#: src/replyto.c:324
+#: src/replyto.c:451
 msgid "General"
 msgstr ""
 
-#: src/replyto.c:341 src/replyto.c:371 src/replyto.c:380
+#: src/replyto.c:468 src/replyto.c:498 src/replyto.c:507
 msgid "ReplyTo"
 msgstr ""
 
-#: src/replyto.c:361
+#: src/replyto.c:488
 msgid "About"
 msgstr ""
 
-#: src/replyto.c:371
+#: src/replyto.c:498
 msgid "ReplyTO plugin is enabled."
 msgstr ""
 
-#: src/replyto.c:380
+#: src/replyto.c:507
 msgid "ReplyTo plugin is disabled."
 msgstr ""
 
-#: src/replyto.c:386
+#: src/replyto.c:513
 msgid "ReplyTo is disabled. Click the icon to enable plugin."
 msgstr ""
