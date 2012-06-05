@@ -197,8 +197,8 @@ static void compose_created_cb(GObject *obj, gpointer compose)
   text = syl_plugin_compose_entry_get_text(compose, 0);
   g_print("test: compose To: %s\n", text);
   g_free(text);
-  syl_plugin_compose_entry_set(compose, "test-plugin@test", 1);
-  syl_plugin_compose_entry_append(compose, "second@test", 1);
+  /* rewrite To: entry */
+  syl_plugin_compose_entry_set(compose, "test-plugin@test", 0);
 }
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
