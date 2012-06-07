@@ -290,6 +290,11 @@ static void exec_replyto_who_cb(void)
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
   gtk_widget_show(confirm_area);
 
+  GtkWidget *hbox = gtk_hbox_new(FALSE, 6);
+  gtk_widget_show(hbox);
+  GtkWidget *label = gtk_label_new(_("To:"));
+  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
+
   int i , j;
   g_opt.combo = gtk_combo_box_new_text();
   if (g_opt.msginfo) {
@@ -311,7 +316,8 @@ static void exec_replyto_who_cb(void)
       }
     }
   }
-  gtk_box_pack_start(GTK_BOX(vbox), g_opt.combo, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), g_opt.combo, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
   
   gtk_widget_show_all(window);
   
