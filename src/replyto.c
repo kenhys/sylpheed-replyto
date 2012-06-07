@@ -195,15 +195,14 @@ static void compose_created_cb(GObject *obj, gpointer compose)
 
   g_print("test: %p: compose created (%p)\n", obj, compose);
 
-  text = syl_plugin_compose_entry_get_text(compose, 0);
-  g_print("test: compose To: %s\n", text);
-  g_free(text);
   /* rewrite To: entry */
-  syl_plugin_compose_entry_set(compose, "test-plugin@test", 0);
+  syl_plugin_compose_entry_set(compose, g_opt.to, 0);
 }
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
+  g_opt.to = gtk_combo_box_get_active_text(g_opt.combo);
+
   MainWindow *mainwin = syl_plugin_main_window_get();
   
   /* emulate reply button clicked! */
@@ -292,7 +291,7 @@ static void exec_replyto_who_cb(void)
   gtk_widget_show(confirm_area);
 
   int i , j;
-  GtkComboBox *combo = gtk_combo_box_new_text();
+  g_opt.combo = gtk_combo_box_new_text();
   if (g_opt.msginfo) {
     debug_print("[DEBUG] msginfo:%p\n", g_opt.msginfo);
     gchar *msg_path = procmsg_get_message_file_path(g_opt.msginfo);
@@ -304,7 +303,7 @@ static void exec_replyto_who_cb(void)
         if (header && header->name && header->body) {
           for (j = 0; j < 5; j++) {
             if (strcmp(header->name, reply_to_list[j]) == 0) {
-              gtk_combo_box_append_text(combo, header->body);
+              gtk_combo_box_append_text(g_opt.combo, header->body);
             }
           }
           g_print("%s:%s\n", header->name, header->body);
@@ -312,7 +311,7 @@ static void exec_replyto_who_cb(void)
       }
     }
   }
-  gtk_box_pack_start(GTK_BOX(vbox), combo, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(vbox), g_opt.combo, FALSE, FALSE, 0);
   
   gtk_widget_show_all(window);
   
