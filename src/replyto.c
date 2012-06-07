@@ -257,7 +257,7 @@ static void exec_replyto_who_cb(void)
   // show window
   GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_container_set_border_width(GTK_CONTAINER(window), 8);
-  gtk_widget_set_size_request(window, 400, 300);
+  gtk_widget_set_size_request(window, 400, 100);
   gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   gtk_window_set_modal(GTK_WINDOW(window), TRUE);
   gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
