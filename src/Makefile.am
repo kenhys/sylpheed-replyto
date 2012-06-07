@@ -2,7 +2,7 @@ libdir = $(plugindir)
 
 lib_LTLIBRARIES = replyto.la
 
-replyto_la_SOURCES = src/replyto.c src/replyto.h src/ui.c 
+replyto_la_SOURCES = replyto.c replyto.h ui.c 
 replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 
 INCLUDES = \
