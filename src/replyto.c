@@ -99,6 +99,9 @@ void plugin_load(void)
   syl_plugin_signal_connect("compose-created",
                             G_CALLBACK(compose_created_cb), NULL);
 
+  syl_plugin_add_factory_item("<SummaryView>", _("/Repl_y to/Reply to who?"),
+                              exec_replyto_who_cb, NULL);
+
   GtkWidget *mainwin = syl_plugin_main_window_get();
   GtkWidget *statusbar = syl_plugin_main_window_get_statusbar();
   GtkWidget *plugin_box = gtk_hbox_new(FALSE, 0);
@@ -421,6 +424,36 @@ static void exec_replyto_menu_cb(void)
  
     gtk_widget_show(window);
 }
+
+static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
+                                      gpointer data)
+{
+  GtkWidget *widget;
+  int i,j;
+
+  g_print("test: %p: summaryview menu popup\n", obj);
+  widget = gtk_item_factory_get_item(ifactory, "/Reply to/Reply to who?");
+  if (widget) {
+    gtk_widget_set_sensitive(widget, TRUE);
+
+    gchar *msg_path = procmsg_get_message_file_path(g_opt.msginfo);
+    GSList *hlist = procheader_get_header_list_from_file(msg_path);
+    if (hlist) {
+      debug_print("[DEBUG] hlist:%p\n", hlist);
+      for (i = 0; i < g_slist_length(hlist); i) {
+        Header *header = (Header *)g_slist_nth_data(hlist, i);
+        if (header && header->name && header->body) {
+          for (j = 0; j < 5; j) {
+            if (strcasecmp(header->name, reply_to_list[j]) == 0) {
+            }
+          }
+          g_print("%s:%s\n", header->name, header->body);
+        }
+      }
+    }
+  }
+}
+
 
 static GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 {

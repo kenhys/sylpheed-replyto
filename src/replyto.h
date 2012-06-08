@@ -81,6 +81,8 @@ static void inc_start_cb(GObject *obj, PrefsAccount *ac);
 static void inc_finished_cb(GObject *obj, gint new_messages);
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
+static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
+                                      gpointer data);
 
 #define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(g_opt.rcfile, section, keyarg, NULL)
 #define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(g_opt.rcfile, section, keyarg, valarg)
