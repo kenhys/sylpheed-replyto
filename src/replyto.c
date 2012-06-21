@@ -62,12 +62,6 @@ static SylPluginInfo info = {
   N_(PLUGIN_DESC)
 };
 
-static gchar* g_copyright = N_("ReplyTo is distributed under 2-Clause BSD license.\n"
-"\n"
-"Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
-"\n"
-"replyto contains following resource.\n"
-                               "\n");
 
 static gboolean g_enable = FALSE;
 
