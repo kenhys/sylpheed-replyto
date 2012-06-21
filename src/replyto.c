@@ -146,7 +146,7 @@ void plugin_load(void)
       gtk_widget_hide(g_plugin_on);
       gtk_widget_show(g_plugin_off);
       gtk_tooltips_set_tip(g_tooltip, g_onoff_switch,
-                           _("ReplyTo is disalbed. Click the icon to enable plugin."),
+                           _("ReplyTo is disabled. Click the icon to enable plugin."),
                            NULL);
     }
 
