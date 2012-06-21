@@ -69,7 +69,10 @@ typedef struct _ReplyToOption ReplyToOption;
 
 GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
 GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
-
+void setup_plugin_onoff_switch(ReplyToOption *option,
+                               GCallback callback_func,
+                               const char **on_xpm,
+                               const char **off_xpm);
 
 #define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(g_opt.rcfile, section, keyarg, NULL)
 #define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(g_opt.rcfile, section, keyarg, valarg)
