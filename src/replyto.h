@@ -54,7 +54,7 @@ struct _ReplyToOption {
   GtkWidget *plugin_switch;
   GtkTooltips *plugin_tooltip;
 
-  gboolean g_enable;
+  gboolean plugin_enabled;
 
   gboolean startup_flg;
   gchar *to;
