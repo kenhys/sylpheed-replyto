@@ -123,9 +123,20 @@ void plugin_load(void)
     option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
     debug_print("startup:%s", option.startup_flg ? "true" : "false");
 
-    update_plugin_onoff_status(&option, REPLYTO_ENABLED, REPLYTO_DISABLED);
+    if (option.startup_flg != FALSE) {
+      update_plugin_onoff_status(&option,
+                                 option.startup_flg,
+                                 NULL,
+                                 NULL,
+                                 REPLYTO_ENABLED);
+    } else {
+      update_plugin_onoff_status(&option,
+                                 option.startup_flg,
+                                 NULL,
+                                 NULL,
+                                 REPLYTO_DISABLED);
+    }
   } else {
-    /**/
     option.startup_flg = FALSE;
 
   }
