@@ -159,7 +159,7 @@ void update_plugin_onoff_status(ReplyToOption *option,
                                 gboolean onoff,
                                 const char *title,
                                 const char *message,
-                                const char *tooltip),
+                                const char *tooltip)
 {
   option->enabled = onoff;
 
