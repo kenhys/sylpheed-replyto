@@ -175,8 +175,8 @@ void update_plugin_onoff_status(ReplyToOption *option,
                          tooltip,
                          NULL);
   } else {
-    gtk_widget_hide(g_plugin_on);
-    gtk_widget_show(g_plugin_off);
+    gtk_widget_hide(option->plugin_on);
+    gtk_widget_show(option->plugin_off);
     gtk_tooltips_set_tip(option->plugin_tooltip,
                          option->plugin_switch,
                          tooltip,
