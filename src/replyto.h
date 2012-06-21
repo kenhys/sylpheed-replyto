@@ -72,8 +72,8 @@ static void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, g
 static void exec_replyto_who_cb(void);
 static void exec_replyto_menu_cb(void);
 static void exec_replyto_onoff_cb(void);
-static GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
-static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
+GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
+GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
 
 static void command_path_clicked(GtkWidget *widget, gpointer data);
 static void compose_created_cb(GObject *obj, gpointer compose);
