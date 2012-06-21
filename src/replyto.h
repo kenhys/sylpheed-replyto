@@ -49,13 +49,19 @@ struct _ReplyToOption {
   /* rcfile */
   GKeyFile *rcfile;
 
+  GtkWidget *plugin_on_button;
+  GtkWidget *plugin_off_button;
+  GtkWidget *plugin_switch;
+  GtkTooltips *plugin_tooltip;
+
+  gboolean g_enable;
+
   gboolean startup_flg;
   gchar *to;
 
   GtkWidget *startup;
 
   GtkWidget *combo;
-  
   MsgInfo *msginfo;
 };
 
