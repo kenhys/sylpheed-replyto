@@ -76,8 +76,6 @@ GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
 
 static void command_path_clicked(GtkWidget *widget, gpointer data);
 static void compose_created_cb(GObject *obj, gpointer compose);
-static void inc_start_cb(GObject *obj, PrefsAccount *ac);
-static void inc_finished_cb(GObject *obj, gint new_messages);
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
