@@ -155,25 +155,29 @@ void setup_plugin_onoff_switch(ReplyToOption *option,
   gtk_widget_hide(option->plugin_off);
 }
 
-void update_plugin_onoff_status(ReplyToOption *option, gboolean onoff,
-                                const gchar *enabled_message,
-                                const char *disabled_message)
+void update_plugin_onoff_status(ReplyToOption *option,
+                                gboolean onoff,
+                                const char *title,
+                                const char *message,
+                                const char *tooltip),
 {
+  option->enabled = onoff;
+
+  syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
+
   if (onoff != FALSE){
-    option->enable = TRUE;
     gtk_widget_hide(option->plugin_off);
     gtk_widget_show(option->plugin_on);
     gtk_tooltips_set_tip(option->plugin_tooltip,
                          option->plugin_switch,
-                         enabled_message,
+                         tooltip,
                          NULL);
   } else {
-    g_enable=FALSE;
     gtk_widget_hide(g_plugin_on);
     gtk_widget_show(g_plugin_off);
     gtk_tooltips_set_tip(option->plugin_tooltip,
                          option->plugin_switch,
-                         disabled_message,
+                         tooltip,
                          NULL);
   }
 }
