@@ -425,24 +425,18 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 static void exec_replyto_onoff_cb(void)
 {
 
-  if (g_enable != TRUE){
-    syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTO plugin is enabled."), ALERT_NOTICE);
-    g_enable=TRUE;
-    gtk_widget_hide(g_plugin_off);
-    gtk_widget_show(g_plugin_on);
-    gtk_tooltips_set_tip
-      (g_tooltip, g_onoff_switch,
-       _("ReplyTo is enabled. Click the icon to disable plugin."),
-       NULL);
-  }else{
-    syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTo plugin is disabled."), ALERT_NOTICE);
-    g_enable=FALSE;
-    gtk_widget_hide(g_plugin_on);
-    gtk_widget_show(g_plugin_off);
-    gtk_tooltips_set_tip
-      (g_tooltip, g_onoff_switch,
-       _("ReplyTo is disabled. Click the icon to enable plugin."),
-       NULL);
+  if (option.enabled != TRUE){
+    update_plugin_onoff_status(&option,
+                               TRUE,
+                               _("ReplyTo"),
+                               _("ReplyTo plugin is enabled."),
+                               REPLYTO_ENABLED);
+  } else {
+    update_plugin_onoff_status(&option,
+                               TRUE,
+                               _("ReplyTo"),
+                               _("ReplyTo plugin is disabled."),
+                               REPLYTO_DISABLED);
   }
 }
 
