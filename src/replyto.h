@@ -77,8 +77,8 @@ void update_plugin_onoff_status(ReplyToOption *option, gboolean onoff,
                                 const gchar *enabled_message,
                                 const char *disabled_message);
 
-#define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(g_opt.rcfile, section, keyarg, NULL)
-#define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(g_opt.rcfile, section, keyarg, valarg)
+#define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(option.rcfile, section, keyarg, NULL)
+#define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(option.rcfile, section, keyarg, valarg)
 
 #define ALIGN_TOP 3
 #define ALIGN_BOTTOM 3

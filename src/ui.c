@@ -41,7 +41,7 @@
 #include "procheader.h"
 #include "replyto.h"
 
-extern ReplyToOption g_opt;
+extern ReplyToOption option;
 
 static gchar* g_copyright = N_("ReplyTo is distributed under 2-Clause BSD license.\n"
 "\n"
@@ -70,12 +70,12 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
   gtk_alignment_set_padding(GTK_ALIGNMENT(startup_frm_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
 
 
-  g_opt.startup = gtk_check_button_new_with_label(_("Enable plugin on startup."));
-  gtk_container_add(GTK_CONTAINER(startup_frm_align), g_opt.startup);
+  option.startup = gtk_check_button_new_with_label(_("Enable plugin on startup."));
+  gtk_container_add(GTK_CONTAINER(startup_frm_align), option.startup);
   gtk_container_add(GTK_CONTAINER(startup_frm), startup_frm_align);
   gtk_container_add(GTK_CONTAINER(startup_align), startup_frm);
 
-  gtk_widget_show(g_opt.startup);
+  gtk_widget_show(option.startup);
 
 
   /**/
