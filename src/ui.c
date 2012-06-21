@@ -120,3 +120,37 @@ GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
   gtk_widget_show_all(notebook);
   return NULL;
 }
+
+void setup_plugin_onoff_switch(ReplyToOption *option,
+                               GCallback callback_func,
+                               const char **on_xpm,
+                               const char **off_xpm)
+{
+  GtkWidget *main_window = syl_plugin_main_window_get();
+  GtkWidget *statusbar = syl_plugin_main_window_get_statusbar();
+  GtkWidget *plugin_box = gtk_hbox_new(FALSE, 0);
+
+  GdkPixbuf* on_pixbuf = gdk_pixbuf_new_from_xpm_data(on_xpm);
+  option->plugin_on = gtk_image_new_from_pixbuf(on_pixbuf);
+    
+  GdkPixbuf* off_pixbuf = gdk_pixbuf_new_from_xpm_data(off_xpm);
+  option->plugin_off = gtk_image_new_from_pixbuf(off_pixbuf);
+
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_on, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_off, FALSE, FALSE, 0);
+    
+  option->plugin_tooltip = gtk_tooltips_new();
+    
+  option->plugin_switch = gtk_button_new();
+  gtk_button_set_relief(GTK_BUTTON(option->plugin_switch), GTK_RELIEF_NONE);
+  GTK_WIDGET_UNSET_FLAGS(option->plugin_switch, GTK_CAN_FOCUS);
+  gtk_widget_set_size_request(option->plugin_switch, 20, 20);
+
+  gtk_container_add(GTK_CONTAINER(option->plugin_switch), plugin_box);
+  g_signal_connect(G_OBJECT(option->plugin_switch), "clicked",
+                   G_CALLBACK(callback_func), main_window);
+  gtk_box_pack_start(GTK_BOX(statusbar), option->plugin_switch, FALSE, FALSE, 0);
+
+  gtk_widget_show_all(option->plugin_switch);
+  gtk_widget_hide(option->plugin_off);
+}
