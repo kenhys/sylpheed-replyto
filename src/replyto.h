@@ -49,8 +49,8 @@ struct _ReplyToOption {
   /* rcfile */
   GKeyFile *rcfile;
 
-  GtkWidget *plugin_on_button;
-  GtkWidget *plugin_off_button;
+  GtkWidget *plugin_on;
+  GtkWidget *plugin_off;
   GtkWidget *plugin_switch;
   GtkTooltips *plugin_tooltip;
 
