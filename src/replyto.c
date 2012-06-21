@@ -77,7 +77,7 @@ void plugin_load(void)
 {
   syl_init_gettext(REPLYTO, "lib/locale");
   
-  debug_print(gettext("ReplyToNotify notify support Plug-in"));
+  debug_print(gettext("ReplyTo support Plug-in"));
   debug_print(dgettext("ReplyTo", "ReplyTo support Plug-in"));
 
   syl_plugin_add_menuitem("/Tools", NULL, NULL, NULL);
