@@ -436,7 +436,7 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 static void exec_replyto_onoff_cb(void)
 {
 
-  if (option.enabled != TRUE) {
+  if (option.plugin_enabled != TRUE) {
     update_plugin_onoff_status(&option,
                                TRUE,
                                _("ReplyTo"),
@@ -453,7 +453,7 @@ static void exec_replyto_onoff_cb(void)
 
 void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint num)
 {
-  if (g_enable!=TRUE) {
+  if (option.plugin_enabled != TRUE) {
     debug_print("[DEBUG] disabled replyto plugin\n");
     return;
   }
