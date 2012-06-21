@@ -73,9 +73,11 @@ void setup_plugin_onoff_switch(ReplyToOption *option,
                                GCallback callback_func,
                                const char **on_xpm,
                                const char **off_xpm);
-void update_plugin_onoff_status(ReplyToOption *option, gboolean onoff,
-                                const gchar *enabled_message,
-                                const char *disabled_message);
+void update_plugin_onoff_status(ReplyToOption *option,
+                                gboolean onoff,
+                                const char *title,
+                                const char *message,
+                                const char *tooltip);
 
 #define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(option.rcfile, section, keyarg, NULL)
 #define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(option.rcfile, section, keyarg, valarg)
