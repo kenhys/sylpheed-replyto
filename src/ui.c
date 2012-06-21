@@ -43,10 +43,12 @@
 
 extern ReplyToOption g_opt;
 
-static gchar* g_copyright = N_("SylIcons is distributed under GPL license.\n"
+static gchar* g_copyright = N_("ReplyTo is distributed under 2-Clause BSD license.\n"
 "\n"
 "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
-			       "\n");
+"\n"
+"replyto contains following resource.\n"
+                               "\n");
 
 GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 {
