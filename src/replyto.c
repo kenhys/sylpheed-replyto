@@ -135,7 +135,7 @@ void plugin_load(void)
 
 void plugin_unload(void)
 {
-  g_free(g_opt.rcpath);
+  g_free(option.rcpath);
 }
 
 SylPluginInfo *plugin_info(void)
@@ -169,12 +169,12 @@ static void compose_created_cb(GObject *obj, gpointer compose)
   g_print("test: %p: compose created (%p)\n", obj, compose);
 
   /* rewrite To: entry */
-  syl_plugin_compose_entry_set(compose, g_opt.to, 0);
+  syl_plugin_compose_entry_set(compose, option.to, 0);
 }
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
-  g_opt.to = gtk_combo_box_get_active_text(g_opt.combo);
+  option.to = gtk_combo_box_get_active_text(option.combo);
 
   MainWindow *mainwin = syl_plugin_main_window_get();
   
@@ -194,15 +194,15 @@ static void replyto_who_cancel_cb(GtkWidget *widget, gpointer data)
  */
 static void prefs_ok_cb(GtkWidget *widget, gpointer data)
 {
-  g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
+  g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
-  gboolean flg = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(g_opt.startup));
+  gboolean flg = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(option.startup));
   SET_RC_BOOLEAN(REPLYTO, "startup", flg);
   debug_print("startup:%s\n", flg ? "true" : "false");
 
   gsize sz;
-  gchar *buf=g_key_file_to_data(g_opt.rcfile, &sz, NULL);
-  g_file_set_contents(g_opt.rcpath, buf, sz, NULL);
+  gchar *buf=g_key_file_to_data(option.rcfile, &sz, NULL);
+  g_file_set_contents(option.rcpath, buf, sz, NULL);
     
   gtk_widget_destroy(GTK_WIDGET(data));
 }
@@ -266,10 +266,10 @@ static void exec_replyto_who_cb(void)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
   int i , j;
-  g_opt.combo = gtk_combo_box_new_text();
-  if (g_opt.msginfo) {
-    debug_print("[DEBUG] msginfo:%p\n", g_opt.msginfo);
-    gchar *msg_path = procmsg_get_message_file_path(g_opt.msginfo);
+  option.combo = gtk_combo_box_new_text();
+  if (option.msginfo) {
+    debug_print("[DEBUG] msginfo:%p\n", option.msginfo);
+    gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
     GSList *hlist = procheader_get_header_list_from_file(msg_path);
     if (hlist) {
       debug_print("[DEBUG] hlist:%p\n", hlist);
@@ -278,7 +278,7 @@ static void exec_replyto_who_cb(void)
         if (header && header->name && header->body) {
           for (j = 0; j < 5; j++) {
             if (strcmp(header->name, reply_to_list[j]) == 0) {
-              gtk_combo_box_append_text(g_opt.combo, header->body);
+              gtk_combo_box_append_text(option.combo, header->body);
             }
           }
           g_print("%s:%s\n", header->name, header->body);
@@ -286,7 +286,7 @@ static void exec_replyto_who_cb(void)
       }
     }
   }
-  gtk_box_pack_start(GTK_BOX(hbox), g_opt.combo, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(hbox), option.combo, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
   
   gtk_widget_show_all(window);
@@ -298,8 +298,8 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 {
   debug_print("[DEBUG] messageview_show_cb\n");
   debug_print("[DEBUG] msginfo:%p\n", msginfo);
-  g_opt.msginfo = msginfo;
-  debug_print("[DEBUG] msginfo:%p\n", g_opt.msginfo);
+  option.msginfo = msginfo;
+  debug_print("[DEBUG] msginfo:%p\n", option.msginfo);
 }
 
 
@@ -331,9 +331,9 @@ static void exec_replyto_menu_cb(void)
   /* notebook */ 
   GtkWidget *notebook = gtk_notebook_new();
   /* main tab */
-  create_config_main_page(notebook, g_opt.rcfile);
+  create_config_main_page(notebook, option.rcfile);
   /* about, copyright tab */
-  create_config_about_page(notebook, g_opt.rcfile);
+  create_config_about_page(notebook, option.rcfile);
 
   gtk_widget_show(notebook);
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
@@ -377,16 +377,16 @@ static void exec_replyto_menu_cb(void)
 #endif
     
   /* load settings */
-  if (g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
-    g_opt.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
-    debug_print("startup:%s\n", g_opt.startup_flg ? "true" : "false");
-    if (g_opt.startup_flg){
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(g_opt.startup), TRUE);
+  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
+    option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
+    debug_print("startup:%s\n", option.startup_flg ? "true" : "false");
+    if (option.startup_flg){
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(option.startup), TRUE);
     }
 
   }else{
     /* default settings */
-    g_opt.startup_flg = FALSE;
+    option.startup_flg = FALSE;
   }
  
   gtk_widget_show(window);
@@ -403,7 +403,7 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
   if (widget) {
     gtk_widget_set_sensitive(widget, TRUE);
 
-    gchar *msg_path = procmsg_get_message_file_path(g_opt.msginfo);
+    gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
     GSList *hlist = procheader_get_header_list_from_file(msg_path);
     if (hlist) {
       debug_print("[DEBUG] hlist:%p\n", hlist);
@@ -480,7 +480,7 @@ void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint nu
   debug_print("[DEBUG] perm_flags:%08x \n", msginfo->flags.perm_flags);
   debug_print("[DEBUG] tmp_flags:%08x \n", msginfo->flags.tmp_flags);
 
-  g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
+  g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
 #ifdef DEBUG
   debug_print("[DEBUG] item->path:%s\n", item->path);
