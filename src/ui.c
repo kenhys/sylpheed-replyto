@@ -163,7 +163,9 @@ void update_plugin_onoff_status(ReplyToOption *option,
 {
   option->enabled = onoff;
 
-  syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
+  if (title && message) {
+    syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
+  }
 
   if (onoff != FALSE) {
     gtk_widget_hide(option->plugin_off);
