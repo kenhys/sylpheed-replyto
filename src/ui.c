@@ -59,13 +59,32 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
   /* startup */
   if (pkey!=NULL){
   }
-  GtkWidget *vbox = gtk_vbox_new(FALSE, 6);
+  GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
+
+  /**/
+  GtkWidget *startup_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+
+  GtkWidget *startup_frm = gtk_frame_new(_("Startup Option"));
+  GtkWidget *startup_frm_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_frm_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+
+
+  g_opt.startup = gtk_check_button_new_with_label(_("Enable plugin on startup."));
+  gtk_container_add(GTK_CONTAINER(startup_frm_align), g_opt.startup);
+  gtk_container_add(GTK_CONTAINER(startup_frm), startup_frm_align);
+  gtk_container_add(GTK_CONTAINER(startup_align), startup_frm);
+
+  gtk_widget_show(g_opt.startup);
+
+
+  /**/
+  gtk_box_pack_start(GTK_BOX(vbox), startup_align, FALSE, FALSE, 0);
 
   GtkWidget *general_lbl = gtk_label_new(_("General"));
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, general_lbl);
   gtk_widget_show_all(notebook);
-
-  return vbox;
+  return NULL;
 }
 
 /* about, copyright tab */
