@@ -119,7 +119,7 @@ void plugin_load(void)
   option.rcpath = g_strconcat(get_rc_dir(), G_DIR_SEPARATOR_S, REPLYTORC, NULL);
   option.rcfile = g_key_file_new();
 
-  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
+  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)) {
     option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
     debug_print("startup:%s", option.startup_flg ? "true" : "false");
 
@@ -377,10 +377,10 @@ static void exec_replyto_menu_cb(void)
 #endif
     
   /* load settings */
-  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
+  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)) {
     option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
     debug_print("startup:%s\n", option.startup_flg ? "true" : "false");
-    if (option.startup_flg){
+    if (option.startup_flg) {
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(option.startup), TRUE);
     }
 
@@ -425,7 +425,7 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 static void exec_replyto_onoff_cb(void)
 {
 
-  if (option.enabled != TRUE){
+  if (option.enabled != TRUE) {
     update_plugin_onoff_status(&option,
                                TRUE,
                                _("ReplyTo"),
@@ -442,11 +442,11 @@ static void exec_replyto_onoff_cb(void)
 
 void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint num)
 {
-  if (g_enable!=TRUE){
+  if (g_enable!=TRUE) {
     debug_print("[DEBUG] disabled replyto plugin\n");
     return;
   }
-  if (item->stype != F_NORMAL && item->stype != F_INBOX){
+  if (item->stype != F_NORMAL && item->stype != F_INBOX) {
     debug_print("[DEBUG] not F_NORMAL and F_INBOX %d\n", item->stype);
     if (item->folder) {
       if (item->folder->klass) {
@@ -457,7 +457,7 @@ void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint nu
   }
 
   PrefsCommon *prefs_common = prefs_common_get();
-  if (prefs_common->online_mode != TRUE){
+  if (prefs_common->online_mode != TRUE) {
     debug_print("[DEBUG] not online\n");
     return;
   }

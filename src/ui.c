@@ -53,11 +53,11 @@ static gchar* g_copyright = N_("ReplyTo is distributed under 2-Clause BSD licens
 GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 {
   debug_print("create_config_main_page\n");
-  if (notebook == NULL){
+  if (notebook == NULL) {
     return NULL;
   }
   /* startup */
-  if (pkey!=NULL){
+  if (pkey!=NULL) {
   }
   GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
 
@@ -91,7 +91,7 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
 {
   debug_print("create_config_about_page\n");
-  if (notebook == NULL){
+  if (notebook == NULL) {
     return NULL;
   }
   GtkWidget *hbox = gtk_hbox_new(TRUE, 6);
@@ -165,7 +165,7 @@ void update_plugin_onoff_status(ReplyToOption *option,
 
   syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
 
-  if (onoff != FALSE){
+  if (onoff != FALSE) {
     gtk_widget_hide(option->plugin_off);
     gtk_widget_show(option->plugin_on);
     gtk_tooltips_set_tip(option->plugin_tooltip,
