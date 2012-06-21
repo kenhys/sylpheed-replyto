@@ -161,7 +161,7 @@ void update_plugin_onoff_status(ReplyToOption *option,
                                 const char *message,
                                 const char *tooltip)
 {
-  option->enabled = onoff;
+  option->plugin_enabled = onoff;
 
   if (title && message) {
     syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
