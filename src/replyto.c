@@ -120,31 +120,18 @@ void plugin_load(void)
   g_opt.rcfile = g_key_file_new();
 
   if (g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
-    g_opt.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
-    debug_print("startup:%s", g_opt.startup_flg ? "true" : "false");
+    option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
+    debug_print("startup:%s", option.startup_flg ? "true" : "false");
 
-    if (g_opt.startup_flg != FALSE){
-      g_enable=TRUE;
-      gtk_widget_hide(g_plugin_off);
-      gtk_widget_show(g_plugin_on);
-      gtk_tooltips_set_tip(g_tooltip, g_onoff_switch,
-                           _("ReplyTo is enabled. Click the icon to disable plugin."),
-                           NULL);
-    } else {
-      g_enable=FALSE;
-      gtk_widget_hide(g_plugin_on);
-      gtk_widget_show(g_plugin_off);
-      gtk_tooltips_set_tip(g_tooltip, g_onoff_switch,
-                           _("ReplyTo is disabled. Click the icon to enable plugin."),
-                           NULL);
-    }
-
+    update_plugin_onoff_status(&option, REPLYTO_ENABLED, REPLYTO_DISABLED);
   } else {
     /**/
-    g_opt.startup_flg = FALSE;
+    option.startup_flg = FALSE;
 
   }
 }
+
+
 
 void plugin_unload(void)
 {
