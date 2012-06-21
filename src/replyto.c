@@ -151,8 +151,8 @@ void plugin_load(void)
     }
 
   } else {
-      /**/
-      g_opt.startup_flg = FALSE;
+    /**/
+    g_opt.startup_flg = FALSE;
 
   }
 }
@@ -164,13 +164,13 @@ void plugin_unload(void)
 
 SylPluginInfo *plugin_info(void)
 {
-	return &info;
+  return &info;
 }
 
 gint plugin_interface_version(void)
 {
-    /* sylpheed 3.2 or later since r3005 */
-    return 0x0109;
+  /* sylpheed 3.2 or later since r3005 */
+  return 0x0109;
 }
 
 static void init_done_cb(GObject *obj, gpointer data)
@@ -218,21 +218,21 @@ static void replyto_who_cancel_cb(GtkWidget *widget, gpointer data)
  */
 static void prefs_ok_cb(GtkWidget *widget, gpointer data)
 {
-    g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
+  g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
-    gboolean flg = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(g_opt.startup));
-    SET_RC_BOOLEAN(REPLYTO, "startup", flg);
-    debug_print("startup:%s\n", flg ? "true" : "false");
+  gboolean flg = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(g_opt.startup));
+  SET_RC_BOOLEAN(REPLYTO, "startup", flg);
+  debug_print("startup:%s\n", flg ? "true" : "false");
 
-    gsize sz;
-    gchar *buf=g_key_file_to_data(g_opt.rcfile, &sz, NULL);
-    g_file_set_contents(g_opt.rcpath, buf, sz, NULL);
+  gsize sz;
+  gchar *buf=g_key_file_to_data(g_opt.rcfile, &sz, NULL);
+  g_file_set_contents(g_opt.rcpath, buf, sz, NULL);
     
-    gtk_widget_destroy(GTK_WIDGET(data));
+  gtk_widget_destroy(GTK_WIDGET(data));
 }
 static void prefs_cancel_cb(GtkWidget *widget, gpointer data)
 {
-    gtk_widget_destroy(GTK_WIDGET(data));
+  gtk_widget_destroy(GTK_WIDGET(data));
 }
 static void prefs_test_cb(GtkWidget *widget, gpointer data)
 {
@@ -333,90 +333,90 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 static void exec_replyto_menu_cb(void)
 {
-    /* show modal dialog */
-    GtkWidget *window;
-    GtkWidget *vbox;
-    GtkWidget *confirm_area;
-    GtkWidget *ok_btn;
-    GtkWidget *cancel_btn;
+  /* show modal dialog */
+  GtkWidget *window;
+  GtkWidget *vbox;
+  GtkWidget *confirm_area;
+  GtkWidget *ok_btn;
+  GtkWidget *cancel_btn;
 #if DEBUG
-    GtkWidget *test_btn;
+  GtkWidget *test_btn;
 #endif
     
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_container_set_border_width(GTK_CONTAINER(window), 8);
-	gtk_widget_set_size_request(window, 400, 300);
-	gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_modal(GTK_WINDOW(window), TRUE);
-	gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
-	gtk_widget_realize(window);
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_container_set_border_width(GTK_CONTAINER(window), 8);
+  gtk_widget_set_size_request(window, 400, 300);
+  gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+  gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
+  gtk_widget_realize(window);
 
-    vbox = gtk_vbox_new(FALSE, 6);
-	gtk_widget_show(vbox);
-	gtk_container_add(GTK_CONTAINER(window), vbox);
+  vbox = gtk_vbox_new(FALSE, 6);
+  gtk_widget_show(vbox);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
 
-    /* notebook */ 
-    GtkWidget *notebook = gtk_notebook_new();
-    /* main tab */
-    create_config_main_page(notebook, g_opt.rcfile);
-    /* about, copyright tab */
-    create_config_about_page(notebook, g_opt.rcfile);
+  /* notebook */ 
+  GtkWidget *notebook = gtk_notebook_new();
+  /* main tab */
+  create_config_main_page(notebook, g_opt.rcfile);
+  /* about, copyright tab */
+  create_config_about_page(notebook, g_opt.rcfile);
 
-    gtk_widget_show(notebook);
-    gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
+  gtk_widget_show(notebook);
+  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
-    confirm_area = gtk_hbutton_box_new();
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
-	gtk_box_set_spacing(GTK_BOX(confirm_area), 6);
+  confirm_area = gtk_hbutton_box_new();
+  gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
+  gtk_box_set_spacing(GTK_BOX(confirm_area), 6);
 
 
-    ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
-    GTK_WIDGET_SET_FLAGS(ok_btn, GTK_CAN_DEFAULT);
-    gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, FALSE, FALSE, 0);
-    gtk_widget_show(ok_btn);
+  ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
+  GTK_WIDGET_SET_FLAGS(ok_btn, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, FALSE, FALSE, 0);
+  gtk_widget_show(ok_btn);
 
-    cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-    GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-    gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, FALSE, FALSE, 0);
-    gtk_widget_show(cancel_btn);
+  cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, FALSE, FALSE, 0);
+  gtk_widget_show(cancel_btn);
 
 #if DEBUG
-    test_btn = gtk_button_new_from_stock(GTK_STOCK_NETWORK);
-    GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-    gtk_box_pack_start(GTK_BOX(confirm_area), test_btn, FALSE, FALSE, 0);
-    gtk_widget_show(test_btn);
+  test_btn = gtk_button_new_from_stock(GTK_STOCK_NETWORK);
+  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(confirm_area), test_btn, FALSE, FALSE, 0);
+  gtk_widget_show(test_btn);
 #endif
     
-    gtk_widget_show(confirm_area);
+  gtk_widget_show(confirm_area);
 	
-    gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
-	gtk_widget_grab_default(ok_btn);
+  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
+  gtk_widget_grab_default(ok_btn);
 
-    gtk_window_set_title(GTK_WINDOW(window), _("ReplyTo Settings [ReplyTo]"));
+  gtk_window_set_title(GTK_WINDOW(window), _("ReplyTo Settings [ReplyTo]"));
 
-    g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                     G_CALLBACK(prefs_ok_cb), window);
-	g_signal_connect(G_OBJECT(cancel_btn), "clicked",
-                     G_CALLBACK(prefs_cancel_cb), window);
+  g_signal_connect(G_OBJECT(ok_btn), "clicked",
+                   G_CALLBACK(prefs_ok_cb), window);
+  g_signal_connect(G_OBJECT(cancel_btn), "clicked",
+                   G_CALLBACK(prefs_cancel_cb), window);
 #if DEBUG
-	g_signal_connect(G_OBJECT(test_btn), "clicked",
-                     G_CALLBACK(prefs_test_cb), window);
+  g_signal_connect(G_OBJECT(test_btn), "clicked",
+                   G_CALLBACK(prefs_test_cb), window);
 #endif
     
-    /* load settings */
-    if (g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
-      g_opt.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
-      debug_print("startup:%s\n", g_opt.startup_flg ? "true" : "false");
-      if (g_opt.startup_flg){
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(g_opt.startup), TRUE);
-      }
-
-    }else{
-      /* default settings */
-      g_opt.startup_flg = FALSE;
+  /* load settings */
+  if (g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)){
+    g_opt.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
+    debug_print("startup:%s\n", g_opt.startup_flg ? "true" : "false");
+    if (g_opt.startup_flg){
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(g_opt.startup), TRUE);
     }
+
+  }else{
+    /* default settings */
+    g_opt.startup_flg = FALSE;
+  }
  
-    gtk_widget_show(window);
+  gtk_widget_show(window);
 }
 
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
@@ -452,65 +452,65 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 static void exec_replyto_onoff_cb(void)
 {
 
-    if (g_enable != TRUE){
-        syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTO plugin is enabled."), ALERT_NOTICE);
-        g_enable=TRUE;
-        gtk_widget_hide(g_plugin_off);
-        gtk_widget_show(g_plugin_on);
-        gtk_tooltips_set_tip
-			(g_tooltip, g_onoff_switch,
-			 _("ReplyTo is enabled. Click the icon to disable plugin."),
-			 NULL);
-    }else{
-        syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTo plugin is disabled."), ALERT_NOTICE);
-        g_enable=FALSE;
-        gtk_widget_hide(g_plugin_on);
-        gtk_widget_show(g_plugin_off);
-        gtk_tooltips_set_tip
-			(g_tooltip, g_onoff_switch,
-			 _("ReplyTo is disabled. Click the icon to enable plugin."),
-			 NULL);
-    }
+  if (g_enable != TRUE){
+    syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTO plugin is enabled."), ALERT_NOTICE);
+    g_enable=TRUE;
+    gtk_widget_hide(g_plugin_off);
+    gtk_widget_show(g_plugin_on);
+    gtk_tooltips_set_tip
+      (g_tooltip, g_onoff_switch,
+       _("ReplyTo is enabled. Click the icon to disable plugin."),
+       NULL);
+  }else{
+    syl_plugin_alertpanel_message(_("ReplyTo"), _("ReplyTo plugin is disabled."), ALERT_NOTICE);
+    g_enable=FALSE;
+    gtk_widget_hide(g_plugin_on);
+    gtk_widget_show(g_plugin_off);
+    gtk_tooltips_set_tip
+      (g_tooltip, g_onoff_switch,
+       _("ReplyTo is disabled. Click the icon to enable plugin."),
+       NULL);
+  }
 }
 
 void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint num)
 {
-    if (g_enable!=TRUE){
-        debug_print("[DEBUG] disabled replyto plugin\n");
-        return;
-    }
-    if (item->stype != F_NORMAL && item->stype != F_INBOX){
-      debug_print("[DEBUG] not F_NORMAL and F_INBOX %d\n", item->stype);
-      if (item->folder) {
-        if (item->folder->klass) {
-          debug_print("[DEBUG] item->name:%s FolderType:%d %d\n", item->name, item->folder->klass->type);
-        }
+  if (g_enable!=TRUE){
+    debug_print("[DEBUG] disabled replyto plugin\n");
+    return;
+  }
+  if (item->stype != F_NORMAL && item->stype != F_INBOX){
+    debug_print("[DEBUG] not F_NORMAL and F_INBOX %d\n", item->stype);
+    if (item->folder) {
+      if (item->folder->klass) {
+        debug_print("[DEBUG] item->name:%s FolderType:%d %d\n", item->name, item->folder->klass->type);
       }
-      return;
     }
+    return;
+  }
 
-    PrefsCommon *prefs_common = prefs_common_get();
-    if (prefs_common->online_mode != TRUE){
-        debug_print("[DEBUG] not online\n");
-        return;
-    }
+  PrefsCommon *prefs_common = prefs_common_get();
+  if (prefs_common->online_mode != TRUE){
+    debug_print("[DEBUG] not online\n");
+    return;
+  }
 
-    PrefsAccount *ac = (PrefsAccount*)account_get_default();
-    g_return_if_fail(ac != NULL);
+  PrefsAccount *ac = (PrefsAccount*)account_get_default();
+  g_return_if_fail(ac != NULL);
 
-    /* check item->path for filter */
-    g_print("%s\n", item->name);
-    g_print("%s\n", item->path);
+  /* check item->path for filter */
+  g_print("%s\n", item->name);
+  g_print("%s\n", item->path);
 
-    MsgInfo *msginfo = folder_item_get_msginfo(item, num);
-    debug_print("[DEBUG] flags:%08x UNREAD:%08x NEW:%08x MARKED:%08x ", msginfo->flags, MSG_UNREAD, MSG_NEW, MSG_MARKED);
-    debug_print("[DEBUG] perm_flags:%08x \n", msginfo->flags.perm_flags);
-    debug_print("[DEBUG] tmp_flags:%08x \n", msginfo->flags.tmp_flags);
+  MsgInfo *msginfo = folder_item_get_msginfo(item, num);
+  debug_print("[DEBUG] flags:%08x UNREAD:%08x NEW:%08x MARKED:%08x ", msginfo->flags, MSG_UNREAD, MSG_NEW, MSG_MARKED);
+  debug_print("[DEBUG] perm_flags:%08x \n", msginfo->flags.perm_flags);
+  debug_print("[DEBUG] tmp_flags:%08x \n", msginfo->flags.tmp_flags);
 
-    g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
+  g_key_file_load_from_file(g_opt.rcfile, g_opt.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
 #ifdef DEBUG
-    debug_print("[DEBUG] item->path:%s\n", item->path);
+  debug_print("[DEBUG] item->path:%s\n", item->path);
 #endif
 
 }
