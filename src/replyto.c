@@ -514,27 +514,3 @@ void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint nu
 #endif
 
 }
-
-static void command_path_clicked(GtkWidget *widget, gpointer data)
-{
-  GtkWidget *dialog = gtk_file_chooser_dialog_new(NULL, NULL, GTK_FILE_CHOOSER_ACTION_OPEN,
-                                                  GTK_STOCK_OPEN,GTK_RESPONSE_ACCEPT,
-                                                  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                  NULL);
-  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT){
-    gchar *filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(dialog));
-
-    gtk_entry_set_text(GTK_ENTRY(data), filename);
-    g_free (filename);
-  }
-  gtk_widget_destroy (dialog);
-}
-
-static void inc_start_cb(GObject *obj, PrefsAccount *ac)
-{
-}
-
-static void inc_finished_cb(GObject *obj, gint new_messages)
-{
-  g_print("test: received %d new messages\n", new_messages);
-}
