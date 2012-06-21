@@ -71,7 +71,7 @@ static GtkWidget *g_plugin_off = NULL;
 static GtkWidget *g_onoff_switch = NULL;
 static GtkTooltips *g_tooltip = NULL;
 
-static ReplyToOption g_opt;
+ReplyToOption g_opt;
 
 void plugin_load(void)
 {
