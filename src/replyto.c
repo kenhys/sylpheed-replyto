@@ -105,6 +105,8 @@ void plugin_load(void)
                             G_CALLBACK(messageview_show_cb), NULL);
   syl_plugin_signal_connect("compose-created",
                             G_CALLBACK(compose_created_cb), NULL);
+  syl_plugin_signal_connect("summaryview-menu-popup",
+                            G_CALLBACK(summaryview_menu_popup_cb), NULL);
 
   syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
