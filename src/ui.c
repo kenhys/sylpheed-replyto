@@ -106,7 +106,7 @@ GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
   GtkWidget *vbox = gtk_vbox_new(FALSE, 6);
   gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 6);
 
-  GtkWidget *misc = gtk_label_new("SylIcons");
+  GtkWidget *misc = gtk_label_new("ReplyTo");
   gtk_box_pack_start(GTK_BOX(vbox), misc, FALSE, TRUE, 6);
 
   misc = gtk_label_new(PLUGIN_DESC);
