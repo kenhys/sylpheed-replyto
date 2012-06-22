@@ -413,7 +413,7 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
   g_print("test: %p: summaryview menu popup\n", obj);
   widget = gtk_item_factory_get_item(ifactory, "/Reply to/Reply to who?");
   if (widget) {
-    gtk_widget_set_sensitive(widget, TRUE);
+    gtk_widget_set_sensitive(widget, option.plugin_enabled);
 
     gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
     GSList *hlist = procheader_get_header_list_from_file(msg_path);
