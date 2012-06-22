@@ -441,9 +441,8 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
         }
       }
     }
-#endif
-
   }
+#endif
 }
 
 
