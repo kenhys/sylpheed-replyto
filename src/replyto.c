@@ -84,7 +84,8 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 #define REPLYTO_ENABLED _("ReplyTo is enabled. Click the icon to disable plugin.")
 #define REPLYTO_DISABLED _("ReplyTo is disabled. Click the icon to enable plugin.")
-#define REPLYTO_POPUP_MENU _("/Repl_y to/Reply to who?")
+#define REPLYTO_POPUP_MENU _("/Reply to/Reply to who?")
+#define REPLYTO_MENU _("/Message/Reply to/Reply to Who?")
 
 void plugin_load(void)
 {
