@@ -411,7 +411,7 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
   int i,j;
 
   g_print("test: %p: summaryview menu popup\n", obj);
-  widget = gtk_item_factory_get_item(ifactory, "/Reply to/Reply to who?");
+  widget = gtk_item_factory_get_item(ifactory, REPLYTO_POPUP_MENU);
   if (widget) {
     gtk_widget_set_sensitive(widget, option.plugin_enabled);
 
