@@ -43,12 +43,20 @@
 
 extern ReplyToOption option;
 
-static gchar* g_copyright = N_("ReplyTo is distributed under 2-Clause BSD license.\n"
-"\n"
-"Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
-"\n"
-"replyto contains following resource.\n"
-                               "\n");
+static gchar* g_copyright =
+  N_("ReplyTo is distributed under 2-Clause BSD license.\n"
+     "\n"
+     "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
+     "\n"
+     "replyto contains following resource as xpm formats:\n"
+     "\n"
+     "Silk icon set 1.3\n"
+     "Mark James\n"
+     "http://www.famfamfam.com/lab/icons/silk/\n"
+     "\n"
+     "control_repeat.png\n"
+     "control_repeat_blue.png\n"
+     "\n");
 
 GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 {
