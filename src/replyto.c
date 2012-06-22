@@ -84,6 +84,7 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 #define REPLYTO_ENABLED _("ReplyTo is enabled. Click the icon to disable plugin.")
 #define REPLYTO_DISABLED _("ReplyTo is disabled. Click the icon to enable plugin.")
+#define REPLYTO_POPUP_MENU _("/Repl_y to/Reply to who?")
 
 void plugin_load(void)
 {
@@ -105,7 +106,7 @@ void plugin_load(void)
   syl_plugin_signal_connect("compose-created",
                             G_CALLBACK(compose_created_cb), NULL);
 
-  syl_plugin_add_factory_item("<SummaryView>", _("/Repl_y to/Reply to who?"),
+  syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
 
   setup_plugin_onoff_switch(&option,
