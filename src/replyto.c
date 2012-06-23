@@ -65,7 +65,6 @@ ReplyToOption option;
 static void compose_created_cb(GObject *obj, gpointer compose);
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
                                       gpointer data);
-static void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint num);
 static void init_done_cb(GObject *obj, gpointer data);
 static void app_exit_cb(GObject *obj, gpointer data);
 static void app_force_exit_cb(GObject *obj, gpointer data);
@@ -75,7 +74,6 @@ static void prefs_cancel_cb(GtkWidget *widget, gpointer data);
 
 static void exec_replyto_who_cb(void);
 static void exec_replyto_menu_cb(void);
-static void exec_replyto_onoff_cb(void);
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
