@@ -398,24 +398,6 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 }
 
 
-static void exec_replyto_onoff_cb(void)
-{
-
-  if (option.plugin_enabled != TRUE) {
-    update_plugin_onoff_status(&option,
-                               TRUE,
-                               _("ReplyTo"),
-                               _("ReplyTo plugin is enabled."),
-                               REPLYTO_ENABLED);
-  } else {
-    update_plugin_onoff_status(&option,
-                               TRUE,
-                               _("ReplyTo"),
-                               _("ReplyTo plugin is disabled."),
-                               REPLYTO_DISABLED);
-  }
-}
-
 void exec_replyto_cb(GObject *obj, FolderItem *item, const gchar *file, guint num)
 {
   if (option.plugin_enabled != TRUE) {
