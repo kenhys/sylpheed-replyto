@@ -112,40 +112,10 @@ void plugin_load(void)
   syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
 
-  setup_plugin_onoff_switch(&option,
-                            exec_replyto_onoff_cb,
-                            control_repeat_blue,
-                            control_repeat);
-  
   info.name = g_strdup(_(PLUGIN_NAME));
   info.description = g_strdup(_(PLUGIN_DESC));
 
-  option.rcpath = g_strconcat(get_rc_dir(), G_DIR_SEPARATOR_S, REPLYTORC, NULL);
-  option.rcfile = g_key_file_new();
-
-  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)) {
-    option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
-    debug_print("startup:%s", option.startup_flg ? "true" : "false");
-
-    if (option.startup_flg != FALSE) {
-      update_plugin_onoff_status(&option,
-                                 option.startup_flg,
-                                 NULL,
-                                 NULL,
-                                 REPLYTO_ENABLED);
-    } else {
-      update_plugin_onoff_status(&option,
-                                 option.startup_flg,
-                                 NULL,
-                                 NULL,
-                                 REPLYTO_DISABLED);
-    }
-  } else {
-    option.startup_flg = FALSE;
-
-  }
 }
-
 
 
 void plugin_unload(void)
