@@ -380,16 +380,6 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 
   g_print("test: %p: summaryview menu popup\n", obj);
 
-  widget = gtk_item_factory_get_item(ifactory, REPLYTO_MENU);
-  if (widget) {
-    gtk_widget_set_sensitive(widget, option.plugin_enabled);
-  }
-
-  widget = gtk_item_factory_get_item(ifactory, REPLYTO_POPUP_MENU);
-  if (widget) {
-    gtk_widget_set_sensitive(widget, option.plugin_enabled);
-  }
-  
 #if 0
     gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
     GSList *hlist = procheader_get_header_list_from_file(msg_path);
