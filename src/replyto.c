@@ -78,8 +78,6 @@ static void exec_replyto_menu_cb(void);
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
 
-#define REPLYTO_ENABLED _("ReplyTo is enabled. Click the icon to disable plugin.")
-#define REPLYTO_DISABLED _("ReplyTo is disabled. Click the icon to enable plugin.")
 #define REPLYTO_POPUP_MENU _("/Reply to/Reply to who?")
 #define REPLYTO_MENU _("/Message/Reply to/Reply to Who?")
 
