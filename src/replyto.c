@@ -376,19 +376,19 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
   g_print("test: %p: summaryview menu popup\n", obj);
 
 #if 0
-    gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
-    GSList *hlist = procheader_get_header_list_from_file(msg_path);
-    if (hlist) {
-      debug_print("[DEBUG] hlist:%p\n", hlist);
-      for (i = 0; i < g_slist_length(hlist); i) {
-        Header *header = (Header *)g_slist_nth_data(hlist, i);
-        if (header && header->name && header->body) {
-          for (j = 0; j < 5; j) {
-            if (strcasecmp(header->name, reply_to_list[j]) == 0) {
-            }
+  int i,j;
+  gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
+  GSList *hlist = procheader_get_header_list_from_file(msg_path);
+  if (hlist) {
+    debug_print("[DEBUG] hlist:%p\n", hlist);
+    for (i = 0; i < g_slist_length(hlist); i) {
+      Header *header = (Header *)g_slist_nth_data(hlist, i);
+      if (header && header->name && header->body) {
+        for (j = 0; j < 5; j) {
+          if (strcasecmp(header->name, reply_to_list[j]) == 0) {
           }
-          g_print("%s:%s\n", header->name, header->body);
         }
+        g_print("%s:%s\n", header->name, header->body);
       }
     }
   }
