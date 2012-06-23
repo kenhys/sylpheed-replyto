@@ -136,7 +136,6 @@ gint plugin_interface_version(void)
 
 static void init_done_cb(GObject *obj, gpointer data)
 {
-  debug_print("[DEBUG] init_done_cb");
 }
 
 static void app_exit_cb(GObject *obj, gpointer data)
@@ -149,10 +148,6 @@ static void app_force_exit_cb(GObject *obj, gpointer data)
 
 static void compose_created_cb(GObject *obj, gpointer compose)
 {
-  gchar *text;
-
-  g_print("test: %p: compose created (%p)\n", obj, compose);
-
   /* rewrite To: entry */
   syl_plugin_compose_entry_set(compose, option.to, 0);
 }
