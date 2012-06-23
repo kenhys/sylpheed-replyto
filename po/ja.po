@@ -22,7 +22,7 @@ msgstr "ReplyTo - Sylpheed向け返信拡張プラグイン"
 
 #: src/replyto.h:44
 msgid "reply to plug-in for Sylpheed"
-msgstr "返信先指定�?�ラグイン for Sylpheed"
+msgstr "返信先指定プラグイン for Sylpheed"
 
 #: src/replyto.c:81
 msgid "/Reply to/Reply to who?"
@@ -34,15 +34,15 @@ msgstr ""
 
 #: src/replyto.c:88 src/replyto.c:89
 msgid "ReplyTo support Plug-in"
-msgstr "返信先指定サポ�?�ト�?�ラグイン"
+msgstr "返信先指定サポートプラグイン"
 
 #: src/replyto.c:92
 msgid "ReplyTo Settings [replyto]"
-msgstr "返信先指定�?�ラグイン設�? [replyto]"
+msgstr "返信先指定プラグイン設定 [replyto]"
 
 #: src/replyto.c:93
 msgid "Reply to Who?"
-msgstr "返信先�?�?"
+msgstr "返信先は?"
 
 #: src/replyto.c:239
 msgid "To:"
@@ -50,4 +50,4 @@ msgstr ""
 
 #: src/replyto.c:341
 msgid "ReplyTo Settings [ReplyTo]"
-msgstr "返信先指定�?�ラグイン設�? [ReplyTo]"
+msgstr "返信先指定プラグイン設定 [ReplyTo]"
