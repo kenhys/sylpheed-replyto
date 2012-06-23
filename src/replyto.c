@@ -150,13 +150,13 @@ static void compose_created_cb(GObject *obj, gpointer compose)
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
-  option.to = gtk_combo_box_get_active_text(option.combo);
+  option.to = gtk_combo_box_get_active_text(GTK_COMBO_BOX(option.combo));
 
   MainWindow *mainwin = syl_plugin_main_window_get();
-  
+
   /* emulate reply button clicked! */
-  gtk_signal_emit_by_name(mainwin->reply_btn, "clicked");
-  
+  gtk_signal_emit_by_name(GTK_OBJECT(mainwin->reply_btn), "clicked");
+
   gtk_widget_destroy(GTK_WIDGET(data));
 }
 
@@ -254,7 +254,7 @@ static void exec_replyto_who_cb(void)
         if (header && header->name && header->body) {
           for (j = 0; j < 5; j++) {
             if (strcmp(header->name, reply_to_list[j]) == 0) {
-              gtk_combo_box_append_text(option.combo, header->body);
+              gtk_combo_box_append_text(GTK_COMBO_BOX(option.combo), header->body);
             }
           }
           g_print("%s:%s\n", header->name, header->body);
@@ -370,12 +370,11 @@ static void exec_replyto_menu_cb(void)
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
                                       gpointer data)
 {
-  GtkWidget *widget;
-  int i,j;
 
   g_print("test: %p: summaryview menu popup\n", obj);
 
 #if 0
+  GtkWidget *widget;
   int i,j;
   gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
   GSList *hlist = procheader_get_header_list_from_file(msg_path);
