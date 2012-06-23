@@ -309,7 +309,6 @@ static void exec_replyto_menu_cb(void)
   /* notebook */ 
   GtkWidget *notebook = gtk_notebook_new();
   /* main tab */
-  create_config_main_page(notebook, option.rcfile);
   /* about, copyright tab */
   create_config_about_page(notebook, option.rcfile);
 
