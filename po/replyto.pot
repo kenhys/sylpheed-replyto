@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-23 21:27+0900\n"
+"POT-Creation-Date: 2012-06-23 21:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,37 +25,29 @@ msgid "reply to plug-in for Sylpheed"
 msgstr ""
 
 #: src/replyto.c:81
-msgid "ReplyTo is enabled. Click the icon to disable plugin."
-msgstr ""
-
-#: src/replyto.c:82
-msgid "ReplyTo is disabled. Click the icon to enable plugin."
-msgstr ""
-
-#: src/replyto.c:83
 msgid "/Reply to/Reply to who?"
 msgstr ""
 
-#: src/replyto.c:84
+#: src/replyto.c:82
 msgid "/Message/Reply to/Reply to Who?"
 msgstr ""
 
-#: src/replyto.c:90 src/replyto.c:91
+#: src/replyto.c:88 src/replyto.c:89
 msgid "ReplyTo support Plug-in"
 msgstr ""
 
-#: src/replyto.c:94
+#: src/replyto.c:92
 msgid "ReplyTo Settings [replyto]"
 msgstr ""
 
-#: src/replyto.c:95
+#: src/replyto.c:93
 msgid "Reply to Who?"
 msgstr ""
 
-#: src/replyto.c:241
+#: src/replyto.c:239
 msgid "To:"
 msgstr ""
 
-#: src/replyto.c:343
+#: src/replyto.c:341
 msgid "ReplyTo Settings [ReplyTo]"
 msgstr ""
