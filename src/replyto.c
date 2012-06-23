@@ -47,8 +47,6 @@
 #include "prefs_common.h"
 #include "foldersel.h"
 
-#include "../res/repeat_on.xpm"
-#include "../res/repeat_off.xpm"
 #include "replyto.h"
 
 #include <glib.h>
