@@ -157,6 +157,8 @@ static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 
   MainWindow *mainwin = syl_plugin_main_window_get();
 
+  option.replyto_flg = TRUE;
+
   /* emulate reply button clicked! */
   gtk_signal_emit_by_name(GTK_OBJECT(mainwin->reply_btn), "clicked");
 
