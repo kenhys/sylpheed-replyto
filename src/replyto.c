@@ -142,8 +142,12 @@ static void app_force_exit_cb(GObject *obj, gpointer data)
 
 static void compose_created_cb(GObject *obj, gpointer compose)
 {
-  /* rewrite To: entry */
-  syl_plugin_compose_entry_set(compose, option.to, 0);
+  if (option.replyto_flg) {
+    /* rewrite To: entry */
+    syl_plugin_compose_entry_set(compose, option.to, 0);
+
+    option.replyto_flg = FALSE;
+  }
 }
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
