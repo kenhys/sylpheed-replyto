@@ -256,7 +256,7 @@ static void exec_replyto_who_cb(void)
         Header *header = (Header *)g_slist_nth_data(hlist, i);
         if (header && header->name && header->body) {
           for (j = 0; j < 5; j++) {
-            if (strcmp(header->name, reply_to_list[j]) == 0) {
+            if (strcasecmp(header->name, reply_to_list[j]) == 0) {
               gtk_combo_box_append_text(GTK_COMBO_BOX(option.combo), header->body);
             }
           }
