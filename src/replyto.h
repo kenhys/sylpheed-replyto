@@ -63,6 +63,8 @@ struct _ReplyToOption {
 
   GtkWidget *combo;
   MsgInfo *msginfo;
+
+  gboolean replyto_flg;
 };
 
 typedef struct _ReplyToOption ReplyToOption;
