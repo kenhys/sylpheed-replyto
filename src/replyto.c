@@ -250,6 +250,7 @@ static void exec_replyto_who_cb(void)
     debug_print("[DEBUG] msginfo:%p\n", option.msginfo);
     gchar *msg_path = procmsg_get_message_file_path(option.msginfo);
     GSList *hlist = procheader_get_header_list_from_file(msg_path);
+    gchar *first_entry = NULL;
     if (hlist) {
       debug_print("[DEBUG] hlist:%p\n", hlist);
       for (i = 0; i < g_slist_length(hlist); i++) {
@@ -257,11 +258,15 @@ static void exec_replyto_who_cb(void)
         if (header && header->name && header->body) {
           for (j = 0; j < 5; j++) {
             if (strcasecmp(header->name, reply_to_list[j]) == 0) {
+              first_entry = header->body;
               gtk_combo_box_append_text(GTK_COMBO_BOX(option.combo), header->body);
             }
           }
           g_print("%s:%s\n", header->name, header->body);
         }
+      }
+      if (first_entry) {
+        gtk_combo_box_set_title(GTK_COMBO_BOX(option.combo), first_entry);
       }
     }
   }
