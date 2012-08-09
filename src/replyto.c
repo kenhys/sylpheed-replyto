@@ -109,6 +109,7 @@ void plugin_load(void)
   info.name = g_strdup(_(PLUGIN_NAME));
   info.description = g_strdup(_(PLUGIN_DESC));
 
+  option.replyto_flg = FALSE;
 }
 
 
