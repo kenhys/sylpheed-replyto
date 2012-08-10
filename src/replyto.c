@@ -268,7 +268,7 @@ static void exec_replyto_who_cb(void)
         }
       }
       if (first_entry) {
-        gtk_combo_box_set_title(GTK_COMBO_BOX(option.combo), first_entry);
+        gtk_combo_box_set_active(GTK_COMBO_BOX(option.combo), 0);
       }
     }
   }
