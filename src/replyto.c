@@ -361,19 +361,6 @@ static void exec_replyto_menu_cb(void)
                    G_CALLBACK(prefs_test_cb), window);
 #endif
     
-  /* load settings */
-  if (g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL)) {
-    option.startup_flg = GET_RC_BOOLEAN(REPLYTO, "startup");
-    debug_print("startup:%s\n", option.startup_flg ? "true" : "false");
-    if (option.startup_flg) {
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(option.startup), TRUE);
-    }
-
-  }else{
-    /* default settings */
-    option.startup_flg = FALSE;
-  }
- 
   gtk_widget_show(window);
 }
 
