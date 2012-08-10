@@ -1,5 +1,10 @@
 News of replyto
 
+* 0.2.0 (2012-08-XX)
+
+  * improved to set first candidate as selectable default entry.
+  * fixed a bug that allways rewrite To: entry.
+
 * 0.1.0 (2012-06-23)
 
   * initial release
