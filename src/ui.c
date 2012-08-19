@@ -40,6 +40,7 @@
 #include "messageview.h"
 #include "procheader.h"
 #include "replyto.h"
+#include "sylpf_utility.h"
 
 extern ReplyToOption option;
 
@@ -63,6 +64,7 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
   /**/
   GtkWidget *startup_align = gtk_alignment_new(0, 0, 1, 1);
   gtk_alignment_set_padding(GTK_ALIGNMENT(startup_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+#if 0
 
   GtkWidget *startup_frm = gtk_frame_new(_("Startup Option"));
   GtkWidget *startup_frm_align = gtk_alignment_new(0, 0, 1, 1);
@@ -76,7 +78,7 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 
   gtk_widget_show(option.startup);
 
-
+#endif
   /**/
   gtk_box_pack_start(GTK_BOX(vbox), startup_align, FALSE, FALSE, 0);
 

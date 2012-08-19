@@ -2,7 +2,9 @@ libdir = $(plugindir)
 
 lib_LTLIBRARIES = replyto.la
 
-replyto_la_SOURCES = replyto.c replyto.h ui.c 
+sylpf_srcdir = $(top_srcdir)/plugin/sylplugin_factory/src
+
+replyto_la_SOURCES = replyto.c replyto.h ui.c
 replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 
 INCLUDES = \
@@ -10,7 +12,8 @@ INCLUDES = \
 	-I$(includedir) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/libsylph \
-	-I$(top_srcdir)/src
+	-I$(top_srcdir)/src \
+	-I$(sylpf_srcdir)
 
 replyto_la_LIBADD = \
 	$(GTK_LIBS) \
