@@ -42,7 +42,7 @@
 #include "replyto.h"
 #include "sylpf_utility.h"
 
-extern ReplyToOption option;
+extern ReplyToOption SYLPF_OPTION;
 
 static gchar* g_copyright =
   N_("ReplyTo is distributed under 2-Clause BSD license.\n"
@@ -50,7 +50,7 @@ static gchar* g_copyright =
      "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
      "\n");
 
-GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
+GtkWidget *SYLPF_FUNC(create_config_main_page)(GtkWidget *notebook, GKeyFile *pkey)
 {
   debug_print("create_config_main_page\n");
   if (notebook == NULL) {
@@ -89,7 +89,7 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 }
 
 /* about, copyright tab */
-GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
+GtkWidget *SYLPF_FUNC(create_config_about_page)(GtkWidget *notebook, GKeyFile *pkey)
 {
   debug_print("create_config_about_page\n");
   if (notebook == NULL) {
@@ -122,7 +122,7 @@ GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
   return NULL;
 }
 
-void setup_plugin_onoff_switch(ReplyToOption *option,
+void SYLPF_FUNC(setup_plugin_onoff_switch)(ReplyToOption *option,
                                GCallback callback_func,
                                const char **on_xpm,
                                const char **off_xpm)
@@ -156,7 +156,7 @@ void setup_plugin_onoff_switch(ReplyToOption *option,
   gtk_widget_hide(option->plugin_off);
 }
 
-void update_plugin_onoff_status(ReplyToOption *option,
+void SYLPF_FUNC(update_plugin_onoff_status)(ReplyToOption *option,
                                 gboolean onoff,
                                 const char *title,
                                 const char *message,

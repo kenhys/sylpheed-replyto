@@ -314,7 +314,7 @@ static void exec_replyto_menu_cb(void)
   GtkWidget *notebook = gtk_notebook_new();
   /* main tab */
   /* about, copyright tab */
-  create_config_about_page(notebook, SYLPF_OPTION.rcfile);
+  SYLPF_FUNC(create_config_about_page)(notebook, SYLPF_OPTION.rcfile);
 
   gtk_widget_show(notebook);
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);

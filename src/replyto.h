@@ -39,6 +39,8 @@
 #define SYLPF_ID replyto
 #define SYLPF_OPTION replyto_option
 
+#define SYLPF_FUNC(arg) replyto ## _ ## arg
+
 #define _(String) dgettext("replyto", String)
 #define N_(String) gettext_noop(String)
 #define gettext_noop(String) (String)
