@@ -177,10 +177,6 @@ static void prefs_ok_cb(GtkWidget *widget, gpointer data)
 {
   g_key_file_load_from_file(option.rcfile, option.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
-  gboolean flg = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(option.startup));
-  SET_RC_BOOLEAN(REPLYTO, "startup", flg);
-  debug_print("startup:%s\n", flg ? "true" : "false");
-
   gsize sz;
   gchar *buf=g_key_file_to_data(option.rcfile, &sz, NULL);
   g_file_set_contents(option.rcpath, buf, sz, NULL);
