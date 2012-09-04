@@ -83,7 +83,7 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 void plugin_load(void)
 {
-  syl_init_gettext(REPLYTO, "lib/locale");
+  sylpf_init_gettext(REPLYTO, "lib/locale");
   
   debug_print(gettext("ReplyTo support Plug-in"));
   debug_print(dgettext("ReplyTo", "ReplyTo support Plug-in"));
