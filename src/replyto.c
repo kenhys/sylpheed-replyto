@@ -47,11 +47,11 @@
 #include "prefs_common.h"
 #include "foldersel.h"
 
-#include "replyto.h"
-
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <locale.h>
+
+#include "replyto.h"
 
 static SylPluginInfo info = {
   N_(PLUGIN_NAME),
