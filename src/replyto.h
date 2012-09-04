@@ -32,6 +32,9 @@
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <locale.h>
+#include <gtk/gtk.h>
+
+#include "alertpanel.h"
 
 #define REPLYTO "replyto"
 #define REPLYTORC "replytorc"
