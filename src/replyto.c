@@ -202,7 +202,15 @@ enum {
 static void exec_replyto_who_cb(void)
 {
   // show window
-  GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  GtkWidget *window;
+  GtkWidget *vbox;
+  GtkWidget *ok_btn;
+  GtkWidget *cancel_btn;
+  GtkWidget *confirm_area;
+  GtkWidget *hbox;
+  GtkWidget *label;
+
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_container_set_border_width(GTK_CONTAINER(window), 8);
   gtk_widget_set_size_request(window, 400, 100);
   gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -210,21 +218,20 @@ static void exec_replyto_who_cb(void)
   gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
   gtk_widget_realize(window);
 
-  GtkWidget *vbox = gtk_vbox_new(FALSE, 6);
+  vbox = gtk_vbox_new(FALSE, 6);
   gtk_widget_show(vbox);
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
-  GtkWidget *confirm_area = gtk_hbutton_box_new();
+  confirm_area = gtk_hbutton_box_new();
   gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
   gtk_box_set_spacing(GTK_BOX(confirm_area), 6);
 
-
-  GtkWidget *ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
+  ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
   GTK_WIDGET_SET_FLAGS(ok_btn, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, FALSE, FALSE, 0);
   gtk_widget_show(ok_btn);
 
-  GtkWidget *cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+  cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, FALSE, FALSE, 0);
   gtk_widget_show(cancel_btn);
@@ -237,9 +244,9 @@ static void exec_replyto_who_cb(void)
   gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
   gtk_widget_show(confirm_area);
 
-  GtkWidget *hbox = gtk_hbox_new(FALSE, 6);
+  hbox = gtk_hbox_new(FALSE, 6);
   gtk_widget_show(hbox);
-  GtkWidget *label = gtk_label_new(_("To:"));
+  label = gtk_label_new(_("To:"));
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
   int i , j;
