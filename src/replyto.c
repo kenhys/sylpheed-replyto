@@ -300,13 +300,13 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
   
 #define SYLPF_FUNC_NAME "get_replyto_header_list"
   SYLPF_START_FUNC;
-  
+
   *reply_to = NULL;
   msg_path = procmsg_get_message_file_path(msginfo);
   if (!msg_path) {
     return NULL;
   }
-  
+
   header_list = procheader_get_header_list_from_file(msg_path);
   g_free(msg_path);
   if (!header_list) {
