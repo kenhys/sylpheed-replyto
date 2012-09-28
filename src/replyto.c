@@ -78,6 +78,8 @@ static void exec_replyto_menu_cb(void);
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
+static const GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                             gchar **reply_to);
 
 #define REPLYTO_POPUP_MENU _("/Reply to/Reply to who?")
 #define REPLYTO_MENU _("/Message/Reply to/Reply to Who?")
@@ -285,6 +287,48 @@ static void exec_replyto_who_cb(void)
   
   gtk_widget_show_all(window);
   
+}
+
+static const GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                             gchar **reply_to)
+{
+  const gchar *msg_path;
+  GSList *header_list;
+  GSList *reply_list;
+  Header *header;
+  int i, j;
+  
+#define SYLPF_FUNC_NAME "get_replyto_header_list"
+  SYLPF_START_FUNC;
+  
+  *reply_to = NULL;
+  msg_path = procmsg_get_message_file_path(msginfo);
+  if (!msg_path) {
+    return NULL;
+  }
+  
+  header_list = procheader_get_header_list_from_file(msg_path);
+  g_free(msg_path);
+  if (!header_list) {
+    return NULL;
+  }
+  
+  reply_list = NULL;
+  debug_print("[DEBUG] header_list:%p\n", header_list);
+  for (i = 0; i < g_slist_length(header_list); i++) {
+    header = (Header *)g_slist_nth_data(header_list, i);
+    if (header && header->name && header->body) {
+      for (j = 0; j < 5; j++) {
+        if (strcasecmp(header->name, reply_to_list[j]) == 0) {
+          reply_list = g_slist_append(reply_list,  header->body);;
+        }
+      }
+      debug_print("%s:%s\n", header->name, header->body);
+    }
+  }
+  SYLPF_END_FUNC;
+#undef SYLPF_FUNC_NAME
+  return header_list;
 }
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
