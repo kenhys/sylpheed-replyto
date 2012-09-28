@@ -39,7 +39,7 @@
 #define REPLYTO "replyto"
 #define REPLYTORC "replytorc"
 
-#define SYLPF_ID replyto
+#define SYLPF_ID "replyto"
 #define SYLPF_OPTION replyto_option
 
 #define SYLPF_FUNC(arg) replyto ## _ ## arg
