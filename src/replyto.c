@@ -304,22 +304,25 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
   *reply_to = NULL;
   msg_path = procmsg_get_message_file_path(msginfo);
   if (!msg_path) {
+    SYLPF_WARN_MSG("missing MsgInfo file path");
     return NULL;
   }
 
   header_list = procheader_get_header_list_from_file(msg_path);
   g_free(msg_path);
   if (!header_list) {
+    SYLPF_WARN_MSG("missing header list from message file");
     return NULL;
   }
   
   reply_list = NULL;
-  debug_print("[DEBUG] header_list:%p\n", header_list);
+  SYLPF_DEBUG_PTR("header_list", header_list);
   for (i = 0; i < g_slist_length(header_list); i++) {
     header = (Header *)g_slist_nth_data(header_list, i);
     if (header && header->name && header->body) {
-      for (j = 0; j < 5; j++) {
+      for (j = 0; j < sizeof(reply_to_list); j++) {
         if (strcasecmp(header->name, reply_to_list[j]) == 0) {
+          SYLPF_DEBUG_STR("append header body as reply_list", header->body);
           reply_list = g_slist_append(reply_list,  header->body);;
         }
       }
