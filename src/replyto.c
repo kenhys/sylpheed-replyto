@@ -296,7 +296,7 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
   GSList *header_list;
   GSList *reply_list;
   Header *header;
-  int i, j;
+  int i, j, last_index;
   
 #define SYLPF_FUNC_NAME "get_replyto_header_list"
   SYLPF_START_FUNC;
@@ -315,15 +315,21 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
     return NULL;
   }
   
-  reply_list = NULL;
+  SYLPF_DEBUG_STR("msg_path", msg_path);
   SYLPF_DEBUG_PTR("header_list", header_list);
+
+  reply_list = NULL;
+  last_index = (sizeof(reply_to_list)/sizeof(gchar*))-1;
+
   for (i = 0; i < g_slist_length(header_list); i++) {
     header = (Header *)g_slist_nth_data(header_list, i);
     if (header && header->name && header->body) {
-      for (j = 0; j < sizeof(reply_to_list); j++) {
+      SYLPF_DEBUG_STR("header->name", header->name);
+      for (j = last_index; j >= 0; j--) {
         if (strcasecmp(header->name, reply_to_list[j]) == 0) {
           SYLPF_DEBUG_STR("append header body as reply_list", header->body);
-          reply_list = g_slist_append(reply_list,  header->body);;
+          reply_list = g_slist_append(reply_list,  header->body);
+          *reply_to = header->body;
         }
       }
       debug_print("%s:%s\n", header->name, header->body);
