@@ -282,6 +282,25 @@ static void exec_replyto_who_cb(void)
   label = gtk_label_new(_("To:"));
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
 
+#if GTK_CHECK_VERSION(2, 24, 0)
+  SYLPF_OPTION.combo = gtk_combo_box_text_new();
+
+  for (i = 0; i < g_slist_length(header_list); i++) {
+    header = (Header *)g_slist_nth_data(header_list, i);
+    if (header && header->name && header->body) {
+      if (strcasecmp(header->body, first_entry) == 0) {
+        gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(SYLPF_OPTION.combo),
+                                        header->body);
+      } else {
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(SYLPF_OPTION.combo),
+                                       header->body);
+      }
+    }
+  }
+#else
+  SYLPF_OPTION.combo = gtk_combo_box_new();
+#endif
+
   gtk_box_pack_start(GTK_BOX(hbox), SYLPF_OPTION.combo, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
   
