@@ -213,36 +213,25 @@ static void exec_replyto_who_cb(void)
   GtkWidget *hbox;
   GtkWidget *label;
   int i , j;
-  ghar *msg_path;
+  gchar *msg_path;
   gchar *first_entry;
-  GSList *hlist;
+  GSList *header_list;
   Header *header;
   
-  SYLPF_OPTION.combo = gtk_combo_box_new_text();
   if (SYLPF_OPTION.msginfo) {
-    debug_print("[DEBUG] msginfo:%p\n", SYLPF_OPTION.msginfo);
-    msg_path = procmsg_get_message_file_path(SYLPF_OPTION.msginfo);
-    hlist = procheader_get_header_list_from_file(msg_path);
-    first_entry = NULL;
-    if (hlist) {
-      debug_print("[DEBUG] hlist:%p\n", hlist);
-      for (i = 0; i < g_slist_length(hlist); i++) {
-        header = (Header *)g_slist_nth_data(hlist, i);
-        if (header && header->name && header->body) {
-          for (j = 0; j < 5; j++) {
-            if (strcasecmp(header->name, reply_to_list[j]) == 0) {
-              first_entry = header->body;
-              //gtk_combo_box_append_text(GTK_COMBO_BOX(SYLPF_OPTION.combo), header->body);
-            }
-          }
-          g_print("%s:%s\n", header->name, header->body);
-        }
-      }
-      if (first_entry) {
-        gtk_combo_box_set_active(GTK_COMBO_BOX(SYLPF_OPTION.combo), 0);
-      }
+    SYLPF_DEBUG_PTR("msginfo", SYLPF_OPTION.msginfo);
+    header_list = get_replyto_header_list(SYLPF_OPTION.msginfo, &first_entry);
+    
+    SYLPF_DEBUG_PTR("header_list", header_list);
+    SYLPF_DEBUG_PTR("first_entry", first_entry);
+    if (!header_list || !first_entry) {
+      return;
+    }
+    if (!g_slist_length(header_list)) {
+      return;
     }
   }
+
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_container_set_border_width(GTK_CONTAINER(window), 8);
   gtk_widget_set_size_request(window, 400, 100);
