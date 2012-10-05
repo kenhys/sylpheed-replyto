@@ -3,8 +3,8 @@
 #include "../src/private_build.h"
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,1,0,0
- PRODUCTVERSION 0,1,0,0
+ FILEVERSION 0,2,0,0
+ PRODUCTVERSION 0,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS VS_FF_DEBUG
@@ -19,17 +19,17 @@ BEGIN
     BEGIN
         BLOCK "041104b0"
         BEGIN
-            VALUE "Comments", "ReplyTo 0.1.0\0"
+            VALUE "Comments", "ReplyTo 0.2.0\0"
             VALUE "CompanyName", "GiGo I.C.E.\0"
-            VALUE "FileDescription", "ReplyTo 0.1.0\0"
-            VALUE "FileVersion", "0, 1, 0, 1\0"
+            VALUE "FileDescription", "ReplyTo 0.2.0\0"
+            VALUE "FileVersion", "0, 2, 0, 1\0"
             VALUE "InternalName", "replyto\0"
             VALUE "LegalCopyright", "Copyright (C) 2012 HAYASHI Kentaro\0"
             VALUE "LegalTrademarks", "Copyright (C) 2012 HAYASHI Kentaro\0"
             VALUE "OriginalFilename", "replyto.dll\0"
             VALUE "PrivateBuild", PRIVATE_BUILD
-            VALUE "ProductName", "ReplyTo 0.1.0\0"
-            VALUE "ProductVersion", "0, 1, 0, 0\0"
+            VALUE "ProductName", "ReplyTo 0.2.0\0"
+            VALUE "ProductVersion", "0, 2, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
