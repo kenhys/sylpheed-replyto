@@ -345,7 +345,7 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
   }
   SYLPF_END_FUNC;
 #undef SYLPF_FUNC_NAME
-  return header_list;
+  return reply_list;
 }
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
