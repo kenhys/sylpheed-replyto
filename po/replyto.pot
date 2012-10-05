@@ -8,46 +8,70 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-23 21:28+0900\n"
+"POT-Creation-Date: 2012-10-06 02:02+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/replyto.h:43
-msgid "ReplyTo - reply extention plug-in for Sylpheed"
+#: src/replyto.c:84
+msgid "/Reply to/_reply to who?"
 msgstr ""
 
-#: src/replyto.h:44
-msgid "reply to plug-in for Sylpheed"
+#: src/replyto.c:85
+msgid "/Message/Reply to/_reply to Who?"
 msgstr ""
 
-#: src/replyto.c:81
-msgid "/Reply to/Reply to who?"
-msgstr ""
-
-#: src/replyto.c:82
-msgid "/Message/Reply to/Reply to Who?"
-msgstr ""
-
-#: src/replyto.c:88 src/replyto.c:89
+#: src/replyto.c:91 src/replyto.c:92
 msgid "ReplyTo support Plug-in"
 msgstr ""
 
-#: src/replyto.c:92
-msgid "ReplyTo Settings [replyto]"
+#: src/replyto.c:95
+msgid "ReplyTo settings [replyto]"
 msgstr ""
 
-#: src/replyto.c:93
-msgid "Reply to Who?"
+#: src/replyto.c:96
+msgid "reply to who?"
 msgstr ""
 
-#: src/replyto.c:239
+#: src/replyto.c:271
 msgid "To:"
 msgstr ""
 
-#: src/replyto.c:341
+#: src/replyto.c:423
 msgid "ReplyTo Settings [ReplyTo]"
+msgstr ""
+
+#: src/replyto.h:51
+msgid "ReplyTo - reply extention plug-in for Sylpheed"
+msgstr ""
+
+#: src/replyto.h:52
+msgid "reply to plug-in for Sylpheed"
+msgstr ""
+
+#: src/ui.c:48
+msgid ""
+"ReplyTo is distributed under 2-Clause BSD license.\n"
+"\n"
+"Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>\n"
+msgstr ""
+
+#: src/ui.c:69
+msgid "Startup Option"
+msgstr ""
+
+#: src/ui.c:74
+msgid "Enable plugin on startup."
+msgstr ""
+
+#: src/ui.c:85
+msgid "General"
+msgstr ""
+
+#: src/ui.c:119
+msgid "About"
 msgstr ""
