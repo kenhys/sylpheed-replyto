@@ -336,7 +336,7 @@ static const GSList* get_replyto_header_list(MsgInfo *msginfo,
       for (j = last_index; j >= 0; j--) {
         if (strcasecmp(header->name, reply_to_list[j]) == 0) {
           SYLPF_DEBUG_STR("append header body as reply_list", header->body);
-          reply_list = g_slist_append(reply_list,  header->body);
+          reply_list = g_slist_append(reply_list,  header);
           *reply_to = header->body;
         }
       }
