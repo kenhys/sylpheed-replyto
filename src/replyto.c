@@ -286,6 +286,7 @@ static void exec_replyto_who_cb(void)
       }
     }
   }
+  gtk_combo_box_set_active(GTK_COMBO_BOX(SYLPF_OPTION.combo), 0);
 #else
   SYLPF_OPTION.combo = gtk_combo_box_new();
 #endif
