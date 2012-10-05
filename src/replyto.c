@@ -192,7 +192,7 @@ static void prefs_cancel_cb(GtkWidget *widget, gpointer data)
 }
 
 static gchar *reply_to_list[] = {
-  "To", "From", "Cc", "List-Id", "Reply-To"
+  "To", "From", "Cc", "Reply-To"
 };
 
 
