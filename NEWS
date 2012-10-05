@@ -1,9 +1,10 @@
 News of replyto
 
-* 0.2.0 (2012-08-XX)
+* 0.2.0 (2012-10-06)
 
   * improved to set first candidate as selectable default entry.
   * fixed a bug that allways rewrite To: entry.
+  * fixed a SEGV when you open compose window.
 
 * 0.1.0 (2012-06-23)
 
