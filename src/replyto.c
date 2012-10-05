@@ -81,8 +81,8 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 static const GSList* get_replyto_header_list(MsgInfo *msginfo,
                                              gchar **reply_to);
 
-#define REPLYTO_POPUP_MENU _("/Reply to/Reply to who?")
-#define REPLYTO_MENU _("/Message/Reply to/Reply to Who?")
+#define REPLYTO_POPUP_MENU _("/Reply to/_reply to who?")
+#define REPLYTO_MENU _("/Message/Reply to/_reply to Who?")
 
 void plugin_load(void)
 {
@@ -92,8 +92,8 @@ void plugin_load(void)
   debug_print(dgettext("ReplyTo", "ReplyTo support Plug-in"));
 
   syl_plugin_add_menuitem("/Tools", NULL, NULL, NULL);
-  syl_plugin_add_menuitem("/Tools", _("ReplyTo Settings [replyto]"), exec_replyto_menu_cb, NULL);
-  syl_plugin_add_menuitem("/Message/Reply to", _("Reply to Who?"), exec_replyto_who_cb, NULL);
+  syl_plugin_add_menuitem("/Tools", _("ReplyTo settings [replyto]"), exec_replyto_menu_cb, NULL);
+  syl_plugin_add_menuitem("/Message/Reply to", _("reply to who?"), exec_replyto_who_cb, NULL);
 
   g_signal_connect(syl_app_get(), "init-done", G_CALLBACK(init_done_cb), NULL);
   g_signal_connect(syl_app_get(), "app-exit", G_CALLBACK(app_exit_cb), NULL);
