@@ -8,7 +8,12 @@
 *.lo
 *.dll
 Makefile
+configure
 *.in
+autom4te.*
+m4/lt*
+m4/lib*
+config/*
 src/.compile
 src/private_build.h
 src/*.dll
