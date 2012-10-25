@@ -1,8 +1,7 @@
-libdir = $(plugindir)
 
 lib_LTLIBRARIES = replyto.la
 
-sylpf_srcdir = $(top_srcdir)/plugin/sylplugin_factory/src
+sylpf_srcdir = $(top_srcdir)/../sylplugin_factory/src
 
 replyto_la_SOURCES = replyto.c replyto.h ui.c $(sylpf_srcdir)/sylpf_utility.c
 replyto_la_LDFLAGS = -module -no-undefined -avoid-version
@@ -10,15 +9,15 @@ replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 INCLUDES = \
 	$(GTK_CFLAGS) \
 	-I$(includedir) \
-	-I$(top_srcdir) \
-	-I$(top_srcdir)/libsylph \
-	-I$(top_srcdir)/src \
+	-I$(sylpheed_build_dir) \
+	-I$(sylpheed_build_dir)/libsylph \
+	-I$(sylpheed_build_dir)/src \
 	-I$(sylpf_srcdir)
 
 replyto_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(top_builddir)/src/libsylpheed-plugin-0.la \
-	$(top_builddir)/libsylph/libsylph-0.la
+	$(sylpheed_build_dir)/src/libsylpheed-plugin-0.la \
+	$(sylpheed_build_dir)/libsylph/libsylph-0.la
 
 install:
 install-plugin: install-am
