@@ -40,7 +40,7 @@
 #include "messageview.h"
 #include "procheader.h"
 #include "replyto.h"
-#include "sylpf_utility.h"
+#include "sylplugin_factory.h"
 
 extern ReplyToOption SYLPF_OPTION;
 

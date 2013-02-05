@@ -3,7 +3,7 @@ lib_LTLIBRARIES = replyto.la
 
 sylpf_srcdir = $(top_srcdir)/../sylplugin_factory/src
 
-replyto_la_SOURCES = replyto.c replyto.h ui.c $(sylpf_srcdir)/sylpf_utility.c
+replyto_la_SOURCES = replyto.c replyto.h ui.c $(sylpf_srcdir)/sylplugin_factory.c
 replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 
 INCLUDES = \
