@@ -31,6 +31,8 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <glib/gi18n.h>
+#include <locale.h>
 #include <gtk/gtk.h>
 
 #include <stdio.h>
@@ -48,9 +50,6 @@
 #include "prefs_common.h"
 #include "foldersel.h"
 
-#include <glib.h>
-#include <glib/gi18n-lib.h>
-#include <locale.h>
 
 #include "replyto.h"
 #include "sylplugin_factory.h"
