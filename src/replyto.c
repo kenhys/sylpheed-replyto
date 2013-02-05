@@ -53,7 +53,7 @@
 #include <locale.h>
 
 #include "replyto.h"
-#include "sylpf_utility.h"
+#include "sylplugin_factory.h"
 
 static SylPluginInfo info = {
   N_(PLUGIN_NAME),
