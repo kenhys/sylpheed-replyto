@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+#include "config.h"
 #include "sylmain.h"
 #include "mainwindow.h"
 #include "plugin.h"
