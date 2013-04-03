@@ -1,0 +1,18 @@
+language: c
+compiler:
+  - gcc
+  - clang
+notifications:
+  recipients:
+    - kenhys@gmail.com
+branches:
+  only:
+    - master
+    - develop
+before_script:
+  - sudo apt-get install sylpheed
+  - git submodule update --init --recursive
+  - ./autogen.sh
+script:
+  - ./configure
+  - make
