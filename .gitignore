@@ -8,9 +8,11 @@
 *.lo
 *.dll
 Makefile
+Makefile.in
 configure
-*.in
+stamp-h1
 autom4te.*
+src/*.in
 m4/lt*
 m4/lib*
 config/*
