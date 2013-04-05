@@ -86,6 +86,10 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
 static GSList* get_replyto_header_list(MsgInfo *msginfo,
                                        gchar **reply_to);
+static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
+
+static GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
+static void callback_dummy(GtkWidget *widget, gpointer data);
 
 #define REPLYTO_POPUP_MENU _("/Reply to/_reply to who?")
 #define REPLYTO_MENU _("/Message/Reply to/_reply to Who?")
