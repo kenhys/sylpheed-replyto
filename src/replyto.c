@@ -227,6 +227,8 @@ static void exec_replyto_who_cb(void)
   GSList *header_list;
   Header *header;
   
+  first_entry = NULL;
+  header_list = NULL;
   if (SYLPF_OPTION.msginfo) {
     SYLPF_DEBUG_PTR("msginfo", SYLPF_OPTION.msginfo);
     header_list = get_replyto_header_list(SYLPF_OPTION.msginfo, &first_entry);
