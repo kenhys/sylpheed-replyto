@@ -219,8 +219,7 @@ static void exec_replyto_who_cb(void)
   GtkWidget *confirm_area;
   GtkWidget *hbox;
   GtkWidget *label;
-  int i , j;
-  gchar *msg_path;
+  int i;
   gchar *first_entry;
   GSList *header_list;
   Header *header;
