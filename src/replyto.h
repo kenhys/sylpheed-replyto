@@ -44,10 +44,6 @@
 
 #define SYLPF_FUNC(arg) replyto ## _ ## arg
 
-#define _(String) dgettext("replyto", String)
-#define N_(String) gettext_noop(String)
-#define gettext_noop(String) (String)
-
 #define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
 #define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
 
