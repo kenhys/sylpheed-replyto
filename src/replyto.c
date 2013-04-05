@@ -31,7 +31,7 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 #include <locale.h>
 #include <gtk/gtk.h>
 
