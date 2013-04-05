@@ -159,9 +159,11 @@ static void compose_created_cb(GObject *obj, gpointer compose)
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
+  MainWindow *mainwin;
+
   SYLPF_OPTION.to = gtk_combo_box_get_active_text(GTK_COMBO_BOX(SYLPF_OPTION.combo));
 
-  MainWindow *mainwin = syl_plugin_main_window_get();
+  mainwin = syl_plugin_main_window_get();
 
   SYLPF_OPTION.replyto_flg = TRUE;
 
@@ -181,10 +183,12 @@ static void replyto_who_cancel_cb(GtkWidget *widget, gpointer data)
  */
 static void prefs_ok_cb(GtkWidget *widget, gpointer data)
 {
+  gsize sz;
+  gchar *buf;
+
   g_key_file_load_from_file(SYLPF_OPTION.rcfile, SYLPF_OPTION.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
-  gsize sz;
-  gchar *buf=g_key_file_to_data(SYLPF_OPTION.rcfile, &sz, NULL);
+  buf=g_key_file_to_data(SYLPF_OPTION.rcfile, &sz, NULL);
   g_file_set_contents(SYLPF_OPTION.rcpath, buf, sz, NULL);
     
   gtk_widget_destroy(GTK_WIDGET(data));
