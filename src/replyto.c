@@ -377,7 +377,8 @@ static void exec_replyto_menu_cb(void)
 #if DEBUG
   GtkWidget *test_btn;
 #endif
-    
+  GtkWidget *notebook;
+
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_container_set_border_width(GTK_CONTAINER(window), 8);
   gtk_widget_set_size_request(window, 400, 300);
@@ -391,10 +392,10 @@ static void exec_replyto_menu_cb(void)
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   /* notebook */ 
-  GtkWidget *notebook = gtk_notebook_new();
+  notebook = gtk_notebook_new();
   /* main tab */
   /* about, copyright tab */
-  SYLPF_FUNC(create_config_about_page)(notebook, SYLPF_OPTION.rcfile);
+  create_config_about_page(notebook, SYLPF_OPTION.rcfile);
 
   gtk_widget_show(notebook);
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
@@ -445,4 +446,155 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 {
 }
 
+static gchar* g_copyright =
+  N_("ReplyTo is distributed under 2-Clause BSD license.\n"
+     "\n"
+     "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
+     "\n");
 
+GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
+{
+  GtkWidget *vbox;
+  GtkWidget *startup_align;
+  GtkWidget *label;
+  
+  debug_print("create_config_main_page\n");
+  if (notebook == NULL) {
+    return NULL;
+  }
+  /* startup */
+  if (pkey!=NULL) {
+  }
+  vbox = gtk_vbox_new(FALSE, 0);
+
+  /**/
+  startup_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+#if 0
+
+  startup_frm = gtk_frame_new(_("Startup Option"));
+  startup_frm_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_frm_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+
+
+  option.startup = gtk_check_button_new_with_label(_("Enable plugin on startup."));
+  gtk_container_add(GTK_CONTAINER(startup_frm_align), option.startup);
+  gtk_container_add(GTK_CONTAINER(startup_frm), startup_frm_align);
+  gtk_container_add(GTK_CONTAINER(startup_align), startup_frm);
+
+  gtk_widget_show(option.startup);
+
+#endif
+  /**/
+  gtk_box_pack_start(GTK_BOX(vbox), startup_align, FALSE, FALSE, 0);
+
+  label = gtk_label_new(_("General"));
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
+  gtk_widget_show_all(notebook);
+  return NULL;
+}
+
+/* about, copyright tab */
+static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
+{
+  GtkWidget *hbox, *vbox;
+  GtkWidget *misc, *scrolled;
+  GtkTextBuffer *tbuffer;
+  GtkWidget *tview;
+  GtkWidget *label;
+
+  debug_print("create_config_about_page\n");
+  if (notebook == NULL) {
+    return NULL;
+  }
+  hbox = gtk_hbox_new(TRUE, 6);
+  vbox = gtk_vbox_new(FALSE, 6);
+  gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 6);
+
+  misc = gtk_label_new("ReplyTo");
+  gtk_box_pack_start(GTK_BOX(vbox), misc, FALSE, TRUE, 6);
+
+  misc = gtk_label_new(PLUGIN_DESC);
+  gtk_box_pack_start(GTK_BOX(vbox), misc, FALSE, TRUE, 6);
+
+  /* copyright */
+  scrolled = gtk_scrolled_window_new(NULL, NULL);
+
+  tbuffer = gtk_text_buffer_new(NULL);
+  gtk_text_buffer_set_text(tbuffer, _(g_copyright), strlen(g_copyright));
+  tview = gtk_text_view_new_with_buffer(tbuffer);
+  gtk_text_view_set_editable(GTK_TEXT_VIEW(tview), FALSE);
+  gtk_container_add(GTK_CONTAINER(scrolled), tview);
+
+  gtk_box_pack_start(GTK_BOX(vbox), scrolled, TRUE, TRUE, 6);
+
+  label = gtk_label_new(_("About"));
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), hbox, label);
+  gtk_widget_show_all(notebook);
+  return NULL;
+}
+
+static void setup_plugin_onoff_switch(ReplyToOption *option,
+                                      GCallback callback_func,
+                                      const char **on_xpm,
+                                      const char **off_xpm)
+{
+  GtkWidget *main_window = syl_plugin_main_window_get();
+  GtkWidget *statusbar = syl_plugin_main_window_get_statusbar();
+  GtkWidget *plugin_box = gtk_hbox_new(FALSE, 0);
+
+  GdkPixbuf* on_pixbuf = gdk_pixbuf_new_from_xpm_data(on_xpm);
+    
+  GdkPixbuf* off_pixbuf = gdk_pixbuf_new_from_xpm_data(off_xpm);
+
+  option->plugin_on = gtk_image_new_from_pixbuf(on_pixbuf);
+
+  option->plugin_off = gtk_image_new_from_pixbuf(off_pixbuf);
+
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_on, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_off, FALSE, FALSE, 0);
+    
+  option->plugin_tooltip = gtk_tooltips_new();
+    
+  option->plugin_switch = gtk_button_new();
+  gtk_button_set_relief(GTK_BUTTON(option->plugin_switch), GTK_RELIEF_NONE);
+  GTK_WIDGET_UNSET_FLAGS(option->plugin_switch, GTK_CAN_FOCUS);
+  gtk_widget_set_size_request(option->plugin_switch, 20, 20);
+
+  gtk_container_add(GTK_CONTAINER(option->plugin_switch), plugin_box);
+  g_signal_connect(G_OBJECT(option->plugin_switch), "clicked",
+                   G_CALLBACK(callback_func), main_window);
+  gtk_box_pack_start(GTK_BOX(statusbar), option->plugin_switch, FALSE, FALSE, 0);
+
+  gtk_widget_show_all(option->plugin_switch);
+  gtk_widget_hide(option->plugin_off);
+}
+
+static void update_plugin_onoff_status(ReplyToOption *option,
+                                       gboolean onoff,
+                                       const char *title,
+                                       const char *message,
+                                       const char *tooltip)
+{
+  option->plugin_enabled = onoff;
+
+  if (title && message) {
+    syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
+  }
+
+  if (onoff != FALSE) {
+    gtk_widget_hide(option->plugin_off);
+    gtk_widget_show(option->plugin_on);
+    gtk_tooltips_set_tip(option->plugin_tooltip,
+                         option->plugin_switch,
+                         tooltip,
+                         NULL);
+  } else {
+    gtk_widget_hide(option->plugin_on);
+    gtk_widget_show(option->plugin_off);
+    gtk_tooltips_set_tip(option->plugin_tooltip,
+                         option->plugin_switch,
+                         tooltip,
+                         NULL);
+  }
+}
