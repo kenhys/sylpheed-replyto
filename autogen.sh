@@ -14,3 +14,5 @@ run libtoolize --copy --force
 run autoheader
 run automake --add-missing --foreign --copy
 run autoconf
+run intltoolize --copy --force --automake
+
