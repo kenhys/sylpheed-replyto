@@ -54,6 +54,9 @@
 #include "sylplugin_factory.h"
 #include "replyto.h"
 
+#include "../res/repeat_on.xpm"
+#include "../res/repeat_off.xpm"
+
 #define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
 #define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
 
