@@ -119,6 +119,11 @@ void plugin_load(void)
   syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
 
+  setup_plugin_onoff_switch(&SYLPF_OPTION,
+                            G_CALLBACK(callback_dummy),
+                            (const char **)control_repeat_blue,
+                            (const char **)control_repeat);
+
   info.name = g_strdup(_(PLUGIN_NAME));
   info.description = g_strdup(_(PLUGIN_DESC));
 
@@ -543,6 +548,16 @@ static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
   gtk_widget_show_all(notebook);
   return NULL;
 }
+
+static void callback_dummy(GtkWidget *widget, gpointer data)
+{
+  update_plugin_onoff_status(NULL,
+                             FALSE,
+                             NULL,
+                             NULL,
+                             NULL);
+}
+
 
 static void setup_plugin_onoff_switch(ReplyToOption *option,
                                       GCallback callback_func,
