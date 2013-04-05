@@ -41,9 +41,6 @@
 
 #define SYLPF_FUNC(arg) replyto ## _ ## arg
 
-#define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
-#define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
-
 struct _ReplyToOption {
   /* full path to replytorc */
   gchar *rcpath;

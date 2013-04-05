@@ -51,8 +51,11 @@
 #include "foldersel.h"
 
 
-#include "replyto.h"
 #include "sylplugin_factory.h"
+#include "replyto.h"
+
+#define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
+#define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
 
 static SylPluginInfo info = {
   N_(PLUGIN_NAME),
