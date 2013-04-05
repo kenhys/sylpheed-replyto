@@ -81,8 +81,8 @@ static void exec_replyto_menu_cb(void);
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
-static const GSList* get_replyto_header_list(MsgInfo *msginfo,
-                                             gchar **reply_to);
+static GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                       gchar **reply_to);
 
 #define REPLYTO_POPUP_MENU _("/Reply to/_reply to who?")
 #define REPLYTO_MENU _("/Message/Reply to/_reply to Who?")
@@ -305,8 +305,8 @@ static void exec_replyto_who_cb(void)
   
 }
 
-static const GSList* get_replyto_header_list(MsgInfo *msginfo,
-                                             gchar **reply_to)
+static GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                       gchar **reply_to)
 {
   const gchar *msg_path;
   GSList *header_list;
