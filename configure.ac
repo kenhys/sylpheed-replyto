@@ -17,6 +17,9 @@ AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 AC_PROG_INTLTOOL([0.23])
 
+AC_DEFINE([SYLPF_ID], [PACKAGE_NAME], [""])
+AC_DEFINE([SYLPF_OPTION], [replyto_option], [""])
+
 m4_include(lib/sylplugin_factory/m4/compiler_flag.m4)
 
 # Checks for libraries.
