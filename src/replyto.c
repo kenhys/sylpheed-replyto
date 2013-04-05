@@ -59,7 +59,7 @@
 
 static SylPluginInfo info = {
   N_(PLUGIN_NAME),
-  "0.2.0",
+  "0.3.0",
   "HAYASHI Kentaro",
   N_(PLUGIN_DESC)
 };
