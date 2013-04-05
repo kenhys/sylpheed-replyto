@@ -15,16 +15,22 @@ AC_PROG_AWK
 AC_PROG_CC
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
+AC_PROG_INTLTOOL([0.23])
 
 m4_include(lib/sylplugin_factory/m4/compiler_flag.m4)
 
 # Checks for libraries.
 AM_PATH_GLIB_2_0(2.8.0,, AC_MSG_ERROR(Test for GLib failed. See the 'INSTALL' for help.))
 AM_PATH_GTK_2_0(2.8.0,, AC_MSG_ERROR(Test for Gtk failed. See the 'INSTALL' for help.))
+
 GETTEXT_PACKAGE=replyto
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Define text domain.])
+ALL_LINGUAS="ja"
 AM_GLIB_GNU_GETTEXT
+
+replytolocaledir='${prefix}/${DATADIRNAME}/locale'
+AC_SUBST(replytolocaledir)
 
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
