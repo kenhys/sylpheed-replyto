@@ -307,7 +307,7 @@ static void exec_replyto_who_cb(void)
 static GSList* get_replyto_header_list(MsgInfo *msginfo,
                                        gchar **reply_to)
 {
-  const gchar *msg_path;
+  gchar *msg_path;
   GSList *header_list;
   GSList *reply_list;
   Header *header;
