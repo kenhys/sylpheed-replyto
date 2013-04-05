@@ -64,13 +64,11 @@ struct _ReplyToOption {
 
 typedef struct _ReplyToOption ReplyToOption;
 
-GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
-GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
-void setup_plugin_onoff_switch(ReplyToOption *option,
+static void setup_plugin_onoff_switch(ReplyToOption *option,
                                GCallback callback_func,
                                const char **on_xpm,
                                const char **off_xpm);
-void update_plugin_onoff_status(ReplyToOption *option,
+static void update_plugin_onoff_status(ReplyToOption *option,
                                 gboolean onoff,
                                 const char *title,
                                 const char *message,
