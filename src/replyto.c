@@ -403,6 +403,7 @@ static void exec_replyto_menu_cb(void)
   /* notebook */ 
   notebook = gtk_notebook_new();
   /* main tab */
+  create_config_main_page(notebook, SYLPF_OPTION.rcfile);
   /* about, copyright tab */
   create_config_about_page(notebook, SYLPF_OPTION.rcfile);
 
