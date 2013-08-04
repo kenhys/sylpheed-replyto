@@ -546,18 +546,20 @@ static void setup_plugin_onoff_switch(ReplyToOption *option,
 }
 
 static void update_plugin_onoff_status(ReplyToOption *option,
-                                       gboolean onoff,
+                                       gboolean enabled,
                                        const char *title,
                                        const char *message,
                                        const char *tooltip)
 {
-  option->plugin_enabled = onoff;
+  SYLPF_START_FUNC;
+
+  option->plugin_enabled = enabled;
 
   if (title && message) {
     syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
   }
 
-  if (onoff != FALSE) {
+  if (enabled != FALSE) {
     gtk_widget_hide(option->plugin_off);
     gtk_widget_show(option->plugin_on);
     gtk_tooltips_set_tip(option->plugin_tooltip,
