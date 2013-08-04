@@ -39,6 +39,7 @@
 #include <sys/stat.h>
 
 #include "config.h"
+#include "copying.h"
 #include "sylmain.h"
 #include "mainwindow.h"
 #include "plugin.h"
