@@ -54,6 +54,9 @@ struct _ReplyToOption {
 
   gboolean plugin_enabled;
 
+  GtkWidget *startup;
+  gbooleann startup_flag;
+
   gchar *to;
 
   GtkWidget *combo;
