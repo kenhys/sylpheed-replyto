@@ -15,4 +15,4 @@ before_script:
   - ./autogen.sh
 script:
   - ./configure --with-sylpheed-build-dir=`pwd`/sylpheed
-  - make
+  - make V=1
