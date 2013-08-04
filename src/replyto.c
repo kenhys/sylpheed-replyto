@@ -502,8 +502,14 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 static void callback_dummy(GtkWidget *widget, gpointer data)
 {
 
+  ReplyToOption *option;
+  gboolean enabled;
+
+  option = data;
+
+  enabled = option->plugin_enabled ? FALSE : TRUE;
   update_plugin_onoff_status(data,
-                             FALSE,
+                             enabled,
                              NULL,
                              NULL,
                              NULL);
