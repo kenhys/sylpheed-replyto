@@ -501,7 +501,8 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 
 static void callback_dummy(GtkWidget *widget, gpointer data)
 {
-  update_plugin_onoff_status(NULL,
+
+  update_plugin_onoff_status(data,
                              FALSE,
                              NULL,
                              NULL,
