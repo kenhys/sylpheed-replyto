@@ -74,6 +74,8 @@ static void update_plugin_onoff_status(ReplyToOption *option,
                                 const char *message,
                                 const char *tooltip);
 
+static GtkWidget *create_preference_dialog(ReplyToOption *option);
+
 #define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(option.rcfile, section, keyarg, NULL)
 #define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(option.rcfile, section, keyarg, valarg)
 
