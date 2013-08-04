@@ -514,7 +514,6 @@ static void setup_plugin_onoff_switch(ReplyToOption *option,
                                       const char **on_xpm,
                                       const char **off_xpm)
 {
-  GtkWidget *main_window = syl_plugin_main_window_get();
   GtkWidget *statusbar = syl_plugin_main_window_get_statusbar();
   GtkWidget *plugin_box = gtk_hbox_new(FALSE, 0);
 
@@ -538,7 +537,7 @@ static void setup_plugin_onoff_switch(ReplyToOption *option,
 
   gtk_container_add(GTK_CONTAINER(option->plugin_switch), plugin_box);
   g_signal_connect(G_OBJECT(option->plugin_switch), "clicked",
-                   G_CALLBACK(callback_func), main_window);
+                   G_CALLBACK(callback_func), option);
   gtk_box_pack_start(GTK_BOX(statusbar), option->plugin_switch, FALSE, FALSE, 0);
 
   gtk_widget_show_all(option->plugin_switch);
