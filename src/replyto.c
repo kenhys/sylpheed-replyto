@@ -382,7 +382,33 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 static void exec_replyto_menu_cb(void)
 {
-  /* show modal dialog */
+  GtkWidget *dialog;
+
+  SYLPF_START_FUNC;
+
+  dialog = create_preference_dialog(&SYLPF_OPTION);
+
+  gtk_widget_show_all(dialog);
+  response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  switch (response) {
+  case GTK_RESPONSE_OK:
+    save_preference_dialog(&option);
+    break;
+  case GTK_RESPONSE_CANCEL:
+  default:
+    break;
+  }
+
+  gtk_widget_destroy(dialog);
+
+  SYLPF_END_FUNC;
+}
+
+
+static GtkWidget *create_preference_dialog (ReplyToOption *option)
+{
+/* show modal dialog */
   GtkWidget *window;
   GtkWidget *vbox;
   GtkWidget *confirm_area;
