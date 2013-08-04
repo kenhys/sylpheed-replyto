@@ -574,4 +574,5 @@ static void update_plugin_onoff_status(ReplyToOption *option,
                          tooltip,
                          NULL);
   }
+  SYLPF_END_FUNC;
 }
