@@ -383,6 +383,7 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 static void exec_replyto_menu_cb(void)
 {
   GtkWidget *dialog;
+  gint response;
 
   SYLPF_START_FUNC;
 
