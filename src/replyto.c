@@ -39,7 +39,6 @@
 #include <sys/stat.h>
 
 #include "config.h"
-#include "copying.h"
 #include "sylmain.h"
 #include "mainwindow.h"
 #include "plugin.h"
@@ -52,6 +51,7 @@
 #include "foldersel.h"
 
 
+#include "copying.h"
 #include "sylplugin_factory.h"
 #include "replyto.h"
 
