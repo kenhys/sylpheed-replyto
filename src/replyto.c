@@ -504,15 +504,26 @@ static void callback_dummy(GtkWidget *widget, gpointer data)
 
   ReplyToOption *option;
   gboolean enabled;
+  gchar *title;
+  gchar *message;
+  gchar *tooltip;
 
   option = data;
 
   enabled = option->plugin_enabled ? FALSE : TRUE;
+  title = _("ReplyTo");
+  if (enabled) {
+    message = _("ReplyTo is enabled.");
+    tooltip = _("ReplyTo is enabled");
+  } else {
+    message = _("ReplyTo is disabled.");
+    tooltip = _("ReplyTo is disabled");
+  }
   update_plugin_onoff_status(data,
                              enabled,
-                             NULL,
-                             NULL,
-                             NULL);
+                             title,
+                             message,
+                             tooltip);
 }
 
 
