@@ -441,9 +441,13 @@ static GtkWidget *create_preference_dialog (ReplyToOption *option)
   /* main tab */
   create_config_main_page(notebook, SYLPF_OPTION.rcfile);
   /* about, copyright tab */
-  create_config_about_page(notebook, SYLPF_OPTION.rcfile);
+  sylpf_append_config_about_page(notebook,
+                                 option->rcfile,
+                                 _("About"),
+                                 _(PLUGIN_NAME),
+                                 _(PLUGIN_DESC),
+                                 _(copyright));
 
-  gtk_widget_show(notebook);
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
   SYLPF_RETURN_VALUE(dialog);
