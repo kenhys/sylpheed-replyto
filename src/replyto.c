@@ -67,7 +67,7 @@ static SylPluginInfo info = {
   N_(PLUGIN_DESC)
 };
 
-ReplyToOption SYLPF_OPTION;
+static ReplyToOption SYLPF_OPTION;
 
 static void compose_created_cb(GObject *obj, gpointer compose);
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
