@@ -409,9 +409,10 @@ static void exec_replyto_menu_cb(void)
 
 static GtkWidget *create_preference_dialog (ReplyToOption *option)
 {
-/* show modal dialog */
+  GtkWidget *dialog;
+  /* show modal dialog */
   GtkWidget *window;
-  GtkWidget *vbox;
+  GtkWidget *vbox, *hbox;
   GtkWidget *confirm_area;
   GtkWidget *ok_btn;
   GtkWidget *cancel_btn;
@@ -419,18 +420,27 @@ static GtkWidget *create_preference_dialog (ReplyToOption *option)
   GtkWidget *test_btn;
 #endif
   GtkWidget *notebook;
+  gpointer mainwin;
 
-  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_container_set_border_width(GTK_CONTAINER(window), 8);
-  gtk_widget_set_size_request(window, 400, 300);
-  gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
-  gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
-  gtk_widget_realize(window);
+  mainwin = syl_plugin_main_window_get();
+  window = ((MainWindow*)mainwin)->window;
 
-  vbox = gtk_vbox_new(FALSE, 6);
-  gtk_widget_show(vbox);
-  gtk_container_add(GTK_CONTAINER(window), vbox);
+  dialog = gtk_dialog_new_with_buttons(_("ReplyTo"),
+                                       GTK_WINDOW(window),
+                                       GTK_DIALOG_MODAL,
+                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                       GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                       NULL);
+
+  sylpf_init_preference_dialog_size(dialog);
+
+  vbox = gtk_vbox_new(FALSE, SYLPF_BOX_SPACE);
+  hbox = gtk_hbox_new(TRUE, SYLPF_BOX_SPACE);
+
+  gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(dialog)->vbox), SYLPF_BOX_SPACE);
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), hbox);
+
+  gtk_container_add(GTK_CONTAINER(hbox), vbox);
 
   /* notebook */ 
   notebook = gtk_notebook_new();
@@ -480,7 +490,9 @@ static GtkWidget *create_preference_dialog (ReplyToOption *option)
                    G_CALLBACK(prefs_test_cb), window);
 #endif
     
-  gtk_widget_show(window);
+  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
+
+  SYLPF_RETURN_VALUE(dialog);
 }
 
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
