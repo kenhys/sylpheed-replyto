@@ -87,7 +87,6 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
 static GSList* get_replyto_header_list(MsgInfo *msginfo,
                                        gchar **reply_to);
-static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
 
 static GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
 static void callback_dummy(GtkWidget *widget, gpointer data);
@@ -458,12 +457,6 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 {
 }
 
-static gchar* g_copyright =
-  N_("ReplyTo is distributed under 2-Clause BSD license.\n"
-     "\n"
-     "Copyright (C) 2012 HAYASHI Kentaro <kenhys@gmail.com>"
-     "\n");
-
 GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 {
   GtkWidget *vbox;
@@ -502,46 +495,6 @@ GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
 
   label = gtk_label_new(_("General"));
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
-  gtk_widget_show_all(notebook);
-  return NULL;
-}
-
-/* about, copyright tab */
-static GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey)
-{
-  GtkWidget *hbox, *vbox;
-  GtkWidget *misc, *scrolled;
-  GtkTextBuffer *tbuffer;
-  GtkWidget *tview;
-  GtkWidget *label;
-
-  debug_print("create_config_about_page\n");
-  if (notebook == NULL) {
-    return NULL;
-  }
-  hbox = gtk_hbox_new(TRUE, 6);
-  vbox = gtk_vbox_new(FALSE, 6);
-  gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 6);
-
-  misc = gtk_label_new("ReplyTo");
-  gtk_box_pack_start(GTK_BOX(vbox), misc, FALSE, TRUE, 6);
-
-  misc = gtk_label_new(PLUGIN_DESC);
-  gtk_box_pack_start(GTK_BOX(vbox), misc, FALSE, TRUE, 6);
-
-  /* copyright */
-  scrolled = gtk_scrolled_window_new(NULL, NULL);
-
-  tbuffer = gtk_text_buffer_new(NULL);
-  gtk_text_buffer_set_text(tbuffer, _(g_copyright), strlen(g_copyright));
-  tview = gtk_text_view_new_with_buffer(tbuffer);
-  gtk_text_view_set_editable(GTK_TEXT_VIEW(tview), FALSE);
-  gtk_container_add(GTK_CONTAINER(scrolled), tview);
-
-  gtk_box_pack_start(GTK_BOX(vbox), scrolled, TRUE, TRUE, 6);
-
-  label = gtk_label_new(_("About"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), hbox, label);
   gtk_widget_show_all(notebook);
   return NULL;
 }
