@@ -410,17 +410,10 @@ static void exec_replyto_menu_cb(void)
 static GtkWidget *create_preference_dialog (ReplyToOption *option)
 {
   GtkWidget *dialog;
-  /* show modal dialog */
-  GtkWidget *window;
   GtkWidget *vbox, *hbox;
-  GtkWidget *confirm_area;
-  GtkWidget *ok_btn;
-  GtkWidget *cancel_btn;
-#if DEBUG
-  GtkWidget *test_btn;
-#endif
   GtkWidget *notebook;
   gpointer mainwin;
+  GtkWidget *window;
 
   mainwin = syl_plugin_main_window_get();
   window = ((MainWindow*)mainwin)->window;
@@ -450,46 +443,6 @@ static GtkWidget *create_preference_dialog (ReplyToOption *option)
   create_config_about_page(notebook, SYLPF_OPTION.rcfile);
 
   gtk_widget_show(notebook);
-  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
-
-  confirm_area = gtk_hbutton_box_new();
-  gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
-  gtk_box_set_spacing(GTK_BOX(confirm_area), 6);
-
-
-  ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
-  GTK_WIDGET_SET_FLAGS(ok_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, FALSE, FALSE, 0);
-  gtk_widget_show(ok_btn);
-
-  cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, FALSE, FALSE, 0);
-  gtk_widget_show(cancel_btn);
-
-#if DEBUG
-  test_btn = gtk_button_new_from_stock(GTK_STOCK_NETWORK);
-  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), test_btn, FALSE, FALSE, 0);
-  gtk_widget_show(test_btn);
-#endif
-    
-  gtk_widget_show(confirm_area);
-	
-  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
-  gtk_widget_grab_default(ok_btn);
-
-  gtk_window_set_title(GTK_WINDOW(window), _("ReplyTo Settings [ReplyTo]"));
-
-  g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(prefs_ok_cb), window);
-  g_signal_connect(G_OBJECT(cancel_btn), "clicked",
-                   G_CALLBACK(prefs_cancel_cb), window);
-#if DEBUG
-  g_signal_connect(G_OBJECT(test_btn), "clicked",
-                   G_CALLBACK(prefs_test_cb), window);
-#endif
-    
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
   SYLPF_RETURN_VALUE(dialog);
