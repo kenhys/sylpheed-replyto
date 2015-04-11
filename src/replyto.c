@@ -31,11 +31,14 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <glib/gi18n-lib.h>
+#include <locale.h>
 #include <gtk/gtk.h>
 
 #include <stdio.h>
 #include <sys/stat.h>
 
+#include "config.h"
 #include "sylmain.h"
 #include "mainwindow.h"
 #include "plugin.h"
@@ -47,21 +50,25 @@
 #include "prefs_common.h"
 #include "foldersel.h"
 
-#include <glib.h>
-#include <glib/gi18n-lib.h>
-#include <locale.h>
 
+#include "copying.h"
+#include "sylplugin_factory.h"
 #include "replyto.h"
-#include "sylpf_utility.h"
+
+#include "../res/repeat_on.xpm"
+#include "../res/repeat_off.xpm"
+
+#define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
+#define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
 
 static SylPluginInfo info = {
   N_(PLUGIN_NAME),
-  "0.2.0",
+  VERSION,
   "HAYASHI Kentaro",
   N_(PLUGIN_DESC)
 };
 
-ReplyToOption SYLPF_OPTION;
+static ReplyToOption SYLPF_OPTION;
 
 static void compose_created_cb(GObject *obj, gpointer compose);
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
@@ -78,8 +85,11 @@ static void exec_replyto_menu_cb(void);
 
 static void messageview_show_cb(GObject *obj, gpointer msgview,
 				MsgInfo *msginfo, gboolean all_headers);
-static const GSList* get_replyto_header_list(MsgInfo *msginfo,
-                                             gchar **reply_to);
+static GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                       gchar **reply_to);
+
+static GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
+static void callback_dummy(GtkWidget *widget, gpointer data);
 
 #define REPLYTO_POPUP_MENU _("/Reply to/_reply to who?")
 #define REPLYTO_MENU _("/Message/Reply to/_reply to Who?")
@@ -108,6 +118,11 @@ void plugin_load(void)
 
   syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
+
+  setup_plugin_onoff_switch(&SYLPF_OPTION,
+                            G_CALLBACK(callback_dummy),
+                            (const char **)control_repeat_blue,
+                            (const char **)control_repeat);
 
   info.name = g_strdup(_(PLUGIN_NAME));
   info.description = g_strdup(_(PLUGIN_DESC));
@@ -156,9 +171,11 @@ static void compose_created_cb(GObject *obj, gpointer compose)
 
 static void replyto_who_ok_cb(GtkWidget *widget, gpointer data)
 {
+  MainWindow *mainwin;
+
   SYLPF_OPTION.to = gtk_combo_box_get_active_text(GTK_COMBO_BOX(SYLPF_OPTION.combo));
 
-  MainWindow *mainwin = syl_plugin_main_window_get();
+  mainwin = syl_plugin_main_window_get();
 
   SYLPF_OPTION.replyto_flg = TRUE;
 
@@ -178,10 +195,12 @@ static void replyto_who_cancel_cb(GtkWidget *widget, gpointer data)
  */
 static void prefs_ok_cb(GtkWidget *widget, gpointer data)
 {
+  gsize sz;
+  gchar *buf;
+
   g_key_file_load_from_file(SYLPF_OPTION.rcfile, SYLPF_OPTION.rcpath, G_KEY_FILE_KEEP_COMMENTS, NULL);
 
-  gsize sz;
-  gchar *buf=g_key_file_to_data(SYLPF_OPTION.rcfile, &sz, NULL);
+  buf=g_key_file_to_data(SYLPF_OPTION.rcfile, &sz, NULL);
   g_file_set_contents(SYLPF_OPTION.rcpath, buf, sz, NULL);
     
   gtk_widget_destroy(GTK_WIDGET(data));
@@ -212,12 +231,13 @@ static void exec_replyto_who_cb(void)
   GtkWidget *confirm_area;
   GtkWidget *hbox;
   GtkWidget *label;
-  int i , j;
-  gchar *msg_path;
+  int i;
   gchar *first_entry;
   GSList *header_list;
   Header *header;
   
+  first_entry = NULL;
+  header_list = NULL;
   if (SYLPF_OPTION.msginfo) {
     SYLPF_DEBUG_PTR("msginfo", SYLPF_OPTION.msginfo);
     header_list = get_replyto_header_list(SYLPF_OPTION.msginfo, &first_entry);
@@ -298,10 +318,10 @@ static void exec_replyto_who_cb(void)
   
 }
 
-static const GSList* get_replyto_header_list(MsgInfo *msginfo,
-                                             gchar **reply_to)
+static GSList* get_replyto_header_list(MsgInfo *msginfo,
+                                       gchar **reply_to)
 {
-  const gchar *msg_path;
+  gchar *msg_path;
   GSList *header_list;
   GSList *reply_list;
   Header *header;
@@ -362,76 +382,74 @@ static void messageview_show_cb(GObject *obj, gpointer msgview,
 
 static void exec_replyto_menu_cb(void)
 {
-  /* show modal dialog */
-  GtkWidget *window;
-  GtkWidget *vbox;
-  GtkWidget *confirm_area;
-  GtkWidget *ok_btn;
-  GtkWidget *cancel_btn;
-#if DEBUG
-  GtkWidget *test_btn;
-#endif
-    
-  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_container_set_border_width(GTK_CONTAINER(window), 8);
-  gtk_widget_set_size_request(window, 400, 300);
-  gtk_window_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
-  gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
-  gtk_widget_realize(window);
+  GtkWidget *dialog;
+  gint response;
 
-  vbox = gtk_vbox_new(FALSE, 6);
-  gtk_widget_show(vbox);
-  gtk_container_add(GTK_CONTAINER(window), vbox);
+  SYLPF_START_FUNC;
+
+  dialog = create_preference_dialog(&SYLPF_OPTION);
+
+  gtk_widget_show_all(dialog);
+  response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  switch (response) {
+  case GTK_RESPONSE_OK:
+    save_preference_dialog(&option);
+    break;
+  case GTK_RESPONSE_CANCEL:
+  default:
+    break;
+  }
+
+  gtk_widget_destroy(dialog);
+
+  SYLPF_END_FUNC;
+}
+
+
+static GtkWidget *create_preference_dialog (ReplyToOption *option)
+{
+  GtkWidget *dialog;
+  GtkWidget *vbox, *hbox;
+  GtkWidget *notebook;
+  gpointer mainwin;
+  GtkWidget *window;
+
+  mainwin = syl_plugin_main_window_get();
+  window = ((MainWindow*)mainwin)->window;
+
+  dialog = gtk_dialog_new_with_buttons(_("ReplyTo"),
+                                       GTK_WINDOW(window),
+                                       GTK_DIALOG_MODAL,
+                                       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                       GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                       NULL);
+
+  sylpf_init_preference_dialog_size(dialog);
+
+  vbox = gtk_vbox_new(FALSE, SYLPF_BOX_SPACE);
+  hbox = gtk_hbox_new(TRUE, SYLPF_BOX_SPACE);
+
+  gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(dialog)->vbox), SYLPF_BOX_SPACE);
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), hbox);
+
+  gtk_container_add(GTK_CONTAINER(hbox), vbox);
 
   /* notebook */ 
-  GtkWidget *notebook = gtk_notebook_new();
+  notebook = gtk_notebook_new();
   /* main tab */
+  create_config_main_page(notebook, SYLPF_OPTION.rcfile);
   /* about, copyright tab */
-  SYLPF_FUNC(create_config_about_page)(notebook, SYLPF_OPTION.rcfile);
+  sylpf_append_config_about_page(notebook,
+                                 option->rcfile,
+                                 _("About"),
+                                 _(PLUGIN_NAME),
+                                 _(PLUGIN_DESC),
+                                 _(copyright));
 
-  gtk_widget_show(notebook);
   gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
-  confirm_area = gtk_hbutton_box_new();
-  gtk_button_box_set_layout(GTK_BUTTON_BOX(confirm_area), GTK_BUTTONBOX_END);
-  gtk_box_set_spacing(GTK_BOX(confirm_area), 6);
-
-
-  ok_btn = gtk_button_new_from_stock(GTK_STOCK_OK);
-  GTK_WIDGET_SET_FLAGS(ok_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), ok_btn, FALSE, FALSE, 0);
-  gtk_widget_show(ok_btn);
-
-  cancel_btn = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
-  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), cancel_btn, FALSE, FALSE, 0);
-  gtk_widget_show(cancel_btn);
-
-#if DEBUG
-  test_btn = gtk_button_new_from_stock(GTK_STOCK_NETWORK);
-  GTK_WIDGET_SET_FLAGS(cancel_btn, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(confirm_area), test_btn, FALSE, FALSE, 0);
-  gtk_widget_show(test_btn);
-#endif
-    
-  gtk_widget_show(confirm_area);
-	
-  gtk_box_pack_end(GTK_BOX(vbox), confirm_area, FALSE, FALSE, 0);
-  gtk_widget_grab_default(ok_btn);
-
-  gtk_window_set_title(GTK_WINDOW(window), _("ReplyTo Settings [ReplyTo]"));
-
-  g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(prefs_ok_cb), window);
-  g_signal_connect(G_OBJECT(cancel_btn), "clicked",
-                   G_CALLBACK(prefs_cancel_cb), window);
-#if DEBUG
-  g_signal_connect(G_OBJECT(test_btn), "clicked",
-                   G_CALLBACK(prefs_test_cb), window);
-#endif
-    
-  gtk_widget_show(window);
+  SYLPF_RETURN_VALUE(dialog);
 }
 
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
@@ -439,4 +457,139 @@ static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
 {
 }
 
+GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey)
+{
+  GtkWidget *vbox;
+  GtkWidget *startup_align;
+  GtkWidget *label;
+  
+  debug_print("create_config_main_page\n");
+  if (notebook == NULL) {
+    return NULL;
+  }
+  /* startup */
+  if (pkey!=NULL) {
+  }
+  vbox = gtk_vbox_new(FALSE, 0);
 
+  /**/
+  startup_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+#if 0
+
+  startup_frm = gtk_frame_new(_("Startup Option"));
+  startup_frm_align = gtk_alignment_new(0, 0, 1, 1);
+  gtk_alignment_set_padding(GTK_ALIGNMENT(startup_frm_align), ALIGN_TOP, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT);
+
+
+  option.startup = gtk_check_button_new_with_label(_("Enable plugin on startup."));
+  gtk_container_add(GTK_CONTAINER(startup_frm_align), option.startup);
+  gtk_container_add(GTK_CONTAINER(startup_frm), startup_frm_align);
+  gtk_container_add(GTK_CONTAINER(startup_align), startup_frm);
+
+  gtk_widget_show(option.startup);
+
+#endif
+  /**/
+  gtk_box_pack_start(GTK_BOX(vbox), startup_align, FALSE, FALSE, 0);
+
+  label = gtk_label_new(_("General"));
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), vbox, label);
+  gtk_widget_show_all(notebook);
+  return NULL;
+}
+
+static void callback_dummy(GtkWidget *widget, gpointer data)
+{
+
+  ReplyToOption *option;
+  gboolean enabled;
+  gchar *title;
+  gchar *message;
+  gchar *tooltip;
+
+  option = data;
+
+  enabled = option->plugin_enabled ? FALSE : TRUE;
+  title = _("ReplyTo");
+  if (enabled) {
+    message = _("ReplyTo is enabled.");
+    tooltip = _("ReplyTo is enabled");
+  } else {
+    message = _("ReplyTo is disabled.");
+    tooltip = _("ReplyTo is disabled");
+  }
+  update_plugin_onoff_status(data,
+                             enabled,
+                             title,
+                             message,
+                             tooltip);
+}
+
+
+static void setup_plugin_onoff_switch(ReplyToOption *option,
+                                      GCallback callback_func,
+                                      const char **on_xpm,
+                                      const char **off_xpm)
+{
+  GtkWidget *statusbar = syl_plugin_main_window_get_statusbar();
+  GtkWidget *plugin_box = gtk_hbox_new(FALSE, 0);
+
+  GdkPixbuf* on_pixbuf = gdk_pixbuf_new_from_xpm_data(on_xpm);
+    
+  GdkPixbuf* off_pixbuf = gdk_pixbuf_new_from_xpm_data(off_xpm);
+
+  option->plugin_on = gtk_image_new_from_pixbuf(on_pixbuf);
+
+  option->plugin_off = gtk_image_new_from_pixbuf(off_pixbuf);
+
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_on, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(plugin_box), option->plugin_off, FALSE, FALSE, 0);
+    
+  option->plugin_tooltip = gtk_tooltips_new();
+    
+  option->plugin_switch = gtk_button_new();
+  gtk_button_set_relief(GTK_BUTTON(option->plugin_switch), GTK_RELIEF_NONE);
+  GTK_WIDGET_UNSET_FLAGS(option->plugin_switch, GTK_CAN_FOCUS);
+  gtk_widget_set_size_request(option->plugin_switch, 20, 20);
+
+  gtk_container_add(GTK_CONTAINER(option->plugin_switch), plugin_box);
+  g_signal_connect(G_OBJECT(option->plugin_switch), "clicked",
+                   G_CALLBACK(callback_func), option);
+  gtk_box_pack_start(GTK_BOX(statusbar), option->plugin_switch, FALSE, FALSE, 0);
+
+  gtk_widget_show_all(option->plugin_switch);
+  gtk_widget_hide(option->plugin_off);
+}
+
+static void update_plugin_onoff_status(ReplyToOption *option,
+                                       gboolean enabled,
+                                       const char *title,
+                                       const char *message,
+                                       const char *tooltip)
+{
+  SYLPF_START_FUNC;
+
+  option->plugin_enabled = enabled;
+
+  if (title && message) {
+    syl_plugin_alertpanel_message(title, message, ALERT_NOTICE);
+  }
+
+  if (enabled != FALSE) {
+    gtk_widget_hide(option->plugin_off);
+    gtk_widget_show(option->plugin_on);
+    gtk_tooltips_set_tip(option->plugin_tooltip,
+                         option->plugin_switch,
+                         tooltip,
+                         NULL);
+  } else {
+    gtk_widget_hide(option->plugin_on);
+    gtk_widget_show(option->plugin_off);
+    gtk_tooltips_set_tip(option->plugin_tooltip,
+                         option->plugin_switch,
+                         tooltip,
+                         NULL);
+  }
+  SYLPF_END_FUNC;
+}

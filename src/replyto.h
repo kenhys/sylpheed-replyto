@@ -39,17 +39,7 @@
 #define REPLYTO "replyto"
 #define REPLYTORC "replytorc"
 
-#define SYLPF_ID "replyto"
-#define SYLPF_OPTION replyto_option
-
 #define SYLPF_FUNC(arg) replyto ## _ ## arg
-
-#define _(String) dgettext("replyto", String)
-#define N_(String) gettext_noop(String)
-#define gettext_noop(String) (String)
-
-#define PLUGIN_NAME N_("ReplyTo - reply extention plug-in for Sylpheed")
-#define PLUGIN_DESC N_("reply to plug-in for Sylpheed")
 
 struct _ReplyToOption {
   /* full path to replytorc */
@@ -64,6 +54,9 @@ struct _ReplyToOption {
 
   gboolean plugin_enabled;
 
+  GtkWidget *startup;
+  gbooleann startup_flag;
+
   gchar *to;
 
   GtkWidget *combo;
@@ -74,17 +67,17 @@ struct _ReplyToOption {
 
 typedef struct _ReplyToOption ReplyToOption;
 
-GtkWidget *create_config_main_page(GtkWidget *notebook, GKeyFile *pkey);
-GtkWidget *create_config_about_page(GtkWidget *notebook, GKeyFile *pkey);
-void setup_plugin_onoff_switch(ReplyToOption *option,
+static void setup_plugin_onoff_switch(ReplyToOption *option,
                                GCallback callback_func,
                                const char **on_xpm,
                                const char **off_xpm);
-void update_plugin_onoff_status(ReplyToOption *option,
+static void update_plugin_onoff_status(ReplyToOption *option,
                                 gboolean onoff,
                                 const char *title,
                                 const char *message,
                                 const char *tooltip);
+
+static GtkWidget *create_preference_dialog(ReplyToOption *option);
 
 #define GET_RC_BOOLEAN(section, keyarg) g_key_file_get_boolean(option.rcfile, section, keyarg, NULL)
 #define SET_RC_BOOLEAN(section, keyarg,valarg) g_key_file_set_boolean(option.rcfile, section, keyarg, valarg)

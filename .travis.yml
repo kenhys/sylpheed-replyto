@@ -1,0 +1,22 @@
+language: c
+compiler:
+  - gcc
+  - clang
+notifications:
+  recipients:
+    - kenhys@gmail.com
+branches:
+  only:
+    - master
+    - develop
+env:
+  - SYLPHEED_STAGE=master
+  - SYLPHEED_STAGE=3.5
+  - SYLPHEED_STAGE=3.4
+before_script:
+  - curl --location https://raw.github.com/kenhys/sylpheed-plugin-factory/master/misc/setup-travis.sh | sh
+  - git submodule update --init --recursive
+  - ./autogen.sh
+script:
+  - ./configure --with-sylpheed-build-dir=`pwd`/sylpheed
+  - make V=1

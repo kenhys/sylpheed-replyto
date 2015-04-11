@@ -1,6 +1,9 @@
 News of replyto
 
-* 0.3.0 (2012-XX-XX)
+* 0.3.0 (2013-XX-XX)
+
+  * supported Travis-CI.
+  * added plugin on/off switch icon.
 
 * 0.2.0 (2012-10-06)
 
