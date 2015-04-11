@@ -10,7 +10,6 @@ replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	-I$(includedir) \
-	-I$(sylpheed_build_dir) \
 	-I$(sylpheed_build_dir)/libsylph \
 	-I$(sylpheed_build_dir)/src \
 	-I$(sylplugin_factory_source_dir)/src \
