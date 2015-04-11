@@ -1,9 +1,10 @@
 News of replyto
 
-* 0.3.0 (2013-XX-XX)
+* 0.3.0 (2015-04-11)
 
   * supported Travis-CI.
   * added plugin on/off switch icon.
+  * supported autotools.
 
 * 0.2.0 (2012-10-06)
 
