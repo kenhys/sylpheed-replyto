@@ -34,8 +34,9 @@ AM_GLIB_GNU_GETTEXT
 replytolocaledir='${prefix}/${DATADIRNAME}/locale'
 AC_SUBST(replytolocaledir)
 
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
+PKG_CHECK_MODULES([GLIB], [glib-2.0])
+PKG_CHECK_MODULES([GTK], [gtk+-2.0])
+PKG_CHECK_MODULES([SYLPF], [sylplugin-factory])
 
 # Checks for header files.
 m4_include(macros/sylplugin_factory.m4)
