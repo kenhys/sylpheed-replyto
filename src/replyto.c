@@ -68,7 +68,7 @@ static SylPluginInfo info = {
   N_(PLUGIN_DESC)
 };
 
-static ReplyToOption SYLPF_OPTION;
+static ReplyToOption replyto_option;
 
 static void compose_created_cb(GObject *obj, gpointer compose);
 static void summaryview_menu_popup_cb(GObject *obj, GtkItemFactory *ifactory,
@@ -119,7 +119,7 @@ void plugin_load(void)
   syl_plugin_add_factory_item("<SummaryView>", REPLYTO_POPUP_MENU,
                               exec_replyto_who_cb, NULL);
 
-  setup_plugin_onoff_switch(&SYLPF_OPTION,
+  setup_plugin_onoff_switch(&replyto_option,
                             G_CALLBACK(callback_dummy),
                             (const char **)control_repeat_blue,
                             (const char **)control_repeat);
@@ -387,14 +387,14 @@ static void exec_replyto_menu_cb(void)
 
   SYLPF_START_FUNC;
 
-  dialog = create_preference_dialog(&SYLPF_OPTION);
+  dialog = create_preference_dialog(&replyto_option);
 
   gtk_widget_show_all(dialog);
   response = gtk_dialog_run(GTK_DIALOG(dialog));
 
   switch (response) {
   case GTK_RESPONSE_OK:
-    save_preference_dialog(&option);
+    save_preference_dialog(&replyto_option);
     break;
   case GTK_RESPONSE_CANCEL:
   default:
