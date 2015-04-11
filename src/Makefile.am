@@ -3,8 +3,7 @@ lib_LTLIBRARIES = replyto.la
 
 replyto_la_SOURCES = \
 	replyto.c \
-	replyto.h \
-	$(sylplugin_factory_source_dir)/src/sylplugin_factory.c
+	replyto.h
 
 replyto_la_LDFLAGS = -module -no-undefined -avoid-version
 
