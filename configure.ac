@@ -21,8 +21,6 @@ AC_PROG_INTLTOOL([0.23])
 AC_DEFINE([SYLPF_ID], [PACKAGE_NAME], [""])
 AC_DEFINE([SYLPF_OPTION], [replyto_option], [""])
 
-m4_include(lib/sylplugin_factory/m4/compiler_flag.m4)
-
 # Checks for libraries.
 AM_PATH_GLIB_2_0(2.8.0,, AC_MSG_ERROR(Test for GLib failed. See the 'INSTALL' for help.))
 AM_PATH_GTK_2_0(2.8.0,, AC_MSG_ERROR(Test for Gtk failed. See the 'INSTALL' for help.))
@@ -40,7 +38,7 @@ AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
 # Checks for header files.
-m4_include(lib/sylplugin_factory/m4/sylplugin_factory.m4)
+m4_include(macros/sylplugin_factory.m4)
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for debug
